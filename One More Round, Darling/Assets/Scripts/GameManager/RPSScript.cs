@@ -7,6 +7,7 @@ public class RPSScript : MonoBehaviour
 {
     public RikaScript rikaScript;
     public PlayerScript playerScript;
+    [SerializeField] private Animator targetAnimator;
     //bool resultConclusded;
     //int turnIdx
 
@@ -22,12 +23,18 @@ public class RPSScript : MonoBehaviour
     public int gangsuit()
     {
         rikaScript.decideHand();
+        // animation
+        if (rikaScript.RPSHandIdx == 1) targetAnimator.SetBool("isRock", true);
+        if (rikaScript.RPSHandIdx == 2) targetAnimator.SetBool("isPaper", true);
+        if (rikaScript.RPSHandIdx == 3) targetAnimator.SetBool("isScissors", true);
+
         if (rikaScript.RPSHandIdx != 0 && playerScript.RPSHandIdx != 0)
         {
             if (rikaScript.RPSHandIdx == playerScript.RPSHandIdx)
             {
                 Debug.Log("[DEBUG] Draw!");
                 resetHand();
+                resetAnimation();
                 return 1;
             }
             compareHand(playerScript.RPSHandIdx, rikaScript.RPSHandIdx);
@@ -58,11 +65,13 @@ public class RPSScript : MonoBehaviour
 
         if (result == playerHand)
         {
+            targetAnimator.SetBool("isDamage", true);
             Debug.Log("PLAYER WIN RPS");
             playerScript.winRPS = true;
             rikaScript.winRPS = false;
         } else
         {
+            resetAnimation();
             Debug.Log("RIKA WIN RPS");
             playerScript.winRPS = false;
             rikaScript.winRPS = true;
@@ -75,6 +84,14 @@ public class RPSScript : MonoBehaviour
         rikaScript.RPSHandIdx = 0;
         playerScript.RPSHandIdx = 0;
         rikaScript.RPSDecided = false;
+    }
+
+    private void resetAnimation()
+    {
+        targetAnimator.SetBool("isRock", false);
+        targetAnimator.SetBool("isPaper", false);
+        targetAnimator.SetBool("isScissors", false);
+        targetAnimator.SetBool("isDamage", false);
     }
 
 
