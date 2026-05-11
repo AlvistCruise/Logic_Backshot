@@ -1,0 +1,124 @@
+using System.Threading;
+using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal.Internal;
+
+public class CoreLoop : MonoBehaviour
+{
+    private const int TOTAL_MENU = 4;
+    public MenuScript menuScript;
+
+    RPSScript RPSScript;
+    ShootScript shootScript;
+
+    PlayerScript playerScript;
+    RikaScript rikaScript;
+
+    public TMP_Text RSPTimerText;
+
+    public float RPSStartingTime = 10f;
+
+    float RPSCurrentTime;
+    public int stage = 0;
+    
+    public Canvas[] menuList;
+    bool drawCanvas;
+
+    void Start()
+    {
+
+        RPSScript       = GetComponent<RPSScript>();
+        playerScript    = GetComponent<PlayerScript>();
+        rikaScript      = GetComponent<RikaScript>();
+        shootScript     = GetComponent<ShootScript>();
+
+        //menuList        = new Canvas[TOTAL_MENU];
+        RPSCurrentTime = RPSStartingTime;
+        drawCanvas = true;
+        stage = 1;
+    }
+
+    void Update()
+    {
+        if (!menuScript.start)return;
+        //gangsuit
+        if(stage == 1)
+        {
+            if (drawCanvas)
+            {
+                showCanvas(1);
+                drawCanvas = !drawCanvas;
+            }
+            RPSCurrentTime -= 1 * Time.deltaTime;
+
+            //Debug.Log("Sec: " + RPSCurrentTime);
+
+            RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
+
+            int result = RPSScript.gangsuit();
+            //draw
+            if (result == 1) RPSCurrentTime = RPSStartingTime;
+           
+            //valid
+            if (result == 2)
+            {
+                Debug.Log("[DEBUG} Valid");
+                playerScript.winRPS = false;
+                rikaScript.winRPS = false;
+
+                stage = 3;
+                drawCanvas = true;
+                RPSCurrentTime = -1;
+            }
+
+
+            if(RPSCurrentTime <= 0)
+            {
+                RPSCurrentTime = RPSStartingTime;
+                //TODO: RANDOM SELECT
+                stage = 3;
+                drawCanvas = true;
+
+            }
+        }
+
+        if(stage == 2) { 
+            // nebak
+            // arah kepala == arah tangan -> arah kepala jadi korban, arah tangan jadi pelaku (pegang senjata)
+            // arah kepala != arah tangan -> kembali gangsuit
+        }
+
+
+        //Debug.Log("[DEBUG] Start gangsuit");
+        //gangsuit == draw -> kembali gangsuit
+        //ganguit != draw -> lanjut (menang = arah tangan | kalah = arah kepala)
+
+
+
+        // nembak
+        if(stage == 3)
+        {
+            if (drawCanvas)
+            {
+                showCanvas(3);
+                drawCanvas = !drawCanvas;
+            }
+            Debug.Log("[DEBUG] Start shooting");
+            shootScript.shoot(playerScript, rikaScript);
+        }
+    }
+
+    public void showCanvas(int canvasIdx)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (i == canvasIdx) menuList[i].enabled = true;
+            else menuList[i].enabled = false;
+        }
+    }
+    
+}
