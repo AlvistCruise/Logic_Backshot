@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 41512250}
   m_Layer: 5
   m_Name: OrText
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 265085469}
   m_Layer: 5
   m_Name: YouOrHerRightText
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 293749067}
   m_Layer: 5
   m_Name: ChooseText
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1368,11 +1368,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60.000004
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 60
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1471,7 +1471,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 0.5
+    Time: 2
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512493012}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
@@ -2062,10 +2062,10 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
-    OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FieldOfView: 60
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -3905,6 +3905,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &980094366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980094367}
+  m_Layer: 0
+  m_Name: PlayerHpContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &980094367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980094366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.56, y: 0, z: -2.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1559048471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &988792787
 GameObject:
   m_ObjectHideFlags: 0
@@ -3918,7 +3949,7 @@ GameObject:
   - component: {fileID: 988792789}
   m_Layer: 5
   m_Name: YouOrHerLeftText
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4305,6 +4336,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024397466}
   m_CullTransparentMesh: 1
+--- !u!1 &1037232490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037232491}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1037232491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037232490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.72, y: 4.35, z: -11.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1063536916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,6 +4642,7 @@ GameObject:
   - component: {fileID: 1128406704}
   - component: {fileID: 1128406703}
   - component: {fileID: 1128406705}
+  - component: {fileID: 1128406707}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4626,6 +4689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9c968f019fe894fb8822173d01f620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootScript
+  currentPlayer: {fileID: 0}
+  currentRika: {fileID: 0}
+  coreLoop: {fileID: 0}
+  shootMenu: {fileID: 957398963}
+  targetAnimator: {fileID: 647880177}
 --- !u!114 &1128406702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4710,6 +4778,24 @@ MonoBehaviour:
   - {fileID: 612487532}
   - {fileID: 1305447759}
   - {fileID: 957398966}
+  drawCanvas: 0
+--- !u!114 &1128406707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128406697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc872307ee35704e95752a1a6f05576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpDisplayScript
+  player: {fileID: 0}
+  rika: {fileID: 0}
+  playerHpContainer: {fileID: 980094366}
+  rikaHpContainer: {fileID: 1476864456}
+  hpObj: {fileID: 4526526878329732724, guid: 7746370d21f143a4caf7d5a6f09cce8a, type: 3}
 --- !u!1 &1164405350
 GameObject:
   m_ObjectHideFlags: 0
@@ -4724,7 +4810,7 @@ GameObject:
   - component: {fileID: 1164405352}
   m_Layer: 5
   m_Name: ShootHerButton
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4792,7 +4878,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1164405353}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128406700}
+        m_TargetAssemblyTypeName: ShootScript, Assembly-CSharp
+        m_MethodName: ShootRika
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1164405353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4982,7 +5080,7 @@ GameObject:
   - component: {fileID: 1293871167}
   m_Layer: 5
   m_Name: ShootYouButton
-  m_TagString: Untagged
+  m_TagString: ToggleableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5050,7 +5148,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1293871168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128406700}
+        m_TargetAssemblyTypeName: ShootScript, Assembly-CSharp
+        m_MethodName: ShootSelf
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1293871168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5741,6 +5851,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453294094}
   m_CullTransparentMesh: 1
+--- !u!1 &1476864456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476864457}
+  m_Layer: 0
+  m_Name: RikaHpContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1476864457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476864456}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 2.01, y: 0, z: -2.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1559048471}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &1508266932
 GameObject:
   m_ObjectHideFlags: 0
@@ -6021,6 +6162,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528311060}
   m_CullTransparentMesh: 1
+--- !u!1 &1559048470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559048471}
+  m_Layer: 0
+  m_Name: HpContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559048471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559048470}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64719, y: 2.46, z: -3.64819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 980094367}
+  - {fileID: 1476864457}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1627381474
 GameObject:
   m_ObjectHideFlags: 0
@@ -6956,10 +7130,10 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
-    OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FieldOfView: 60
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -7339,3 +7513,5 @@ SceneRoots:
   - {fileID: 1848782502}
   - {fileID: 1834334489}
   - {fileID: 512493014}
+  - {fileID: 1037232491}
+  - {fileID: 1559048471}

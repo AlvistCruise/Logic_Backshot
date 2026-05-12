@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Opponent
+  - CreditMenu
+  - TutorialMenu
+  - MainMenu
+  - ToggleableObject
+  - HpObject
   layers:
   - Default
   - TransparentFX

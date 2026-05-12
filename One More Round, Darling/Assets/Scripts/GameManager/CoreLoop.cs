@@ -14,6 +14,7 @@ public class CoreLoop : MonoBehaviour
 
     RPSScript RPSScript;
     ShootScript shootScript;
+    HpDisplayScript hpScript;
 
     PlayerScript playerScript;
     RikaScript rikaScript;
@@ -35,6 +36,7 @@ public class CoreLoop : MonoBehaviour
         playerScript    = GetComponent<PlayerScript>();
         rikaScript      = GetComponent<RikaScript>();
         shootScript     = GetComponent<ShootScript>();
+        hpScript = GetComponent<HpDisplayScript>();
 
         //menuList        = new Canvas[TOTAL_MENU];
         RPSCurrentTime = RPSStartingTime;
@@ -45,11 +47,13 @@ public class CoreLoop : MonoBehaviour
     void Update()
     {
         if (!menuScript.start)return;
+        hpScript.updateHp();
         //gangsuit
         if(stage == 1)
         {
             if (drawCanvas)
             {
+                Debug.Log("Canvas drawed: 1");
                 showCanvas(1);
                 drawCanvas = !drawCanvas;
             }
@@ -66,10 +70,6 @@ public class CoreLoop : MonoBehaviour
             //valid
             if (result == 2)
             {
-                Debug.Log("[DEBUG} Valid");
-                playerScript.winRPS = false;
-                rikaScript.winRPS = false;
-
                 stage = 3;
                 drawCanvas = true;
                 RPSCurrentTime = -1;
@@ -104,12 +104,13 @@ public class CoreLoop : MonoBehaviour
         {
             if (drawCanvas)
             {
+                drawCanvas = !drawCanvas;
+                Debug.Log("Canvas drawed: 3");
                 showCanvas(3);
                 shootScript.shoot(playerScript, rikaScript);
-                drawCanvas = !drawCanvas;
             }
             // Debug.Log("[DEBUG] Start shooting");
-            
+
 
             // if shooting session selesai, cek hp, kalau ada yang hp nya 0, game over, kalau gak, kembali gangsuit
         }
