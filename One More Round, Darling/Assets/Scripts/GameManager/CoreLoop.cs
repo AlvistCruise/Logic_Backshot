@@ -109,6 +109,8 @@ public class CoreLoop : MonoBehaviour
             }
             Debug.Log("[DEBUG] Start shooting");
             shootScript.shoot(playerScript, rikaScript);
+
+            // if shooting session selesai, cek hp, kalau ada yang hp nya 0, game over, kalau gak, kembali gangsuit
         }
     }
 

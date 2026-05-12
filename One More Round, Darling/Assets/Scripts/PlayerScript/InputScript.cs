@@ -49,4 +49,16 @@ public class InputScript : MonoBehaviour
     {
 
     }
+
+    // public void shootYou()
+    // {
+    //     Debug.Log("Player shoot myself");
+    //     shootScript.ShootSelf(playerScript);
+    // }
+
+    // public void shootHer()
+    // {
+    //     Debug.Log("Player shoot Rika");
+    //     shootScript.ShootRika(rikaScript);
+    // }
 }
