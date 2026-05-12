@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour
 {
-    private PlayerScript currentPlayer;
-    private RikaScript currentRika;
-    private CoreLoop coreLoop;
+    public PlayerScript currentPlayer;
+    public RikaScript currentRika;
+    public CoreLoop coreLoop;
+    [SerializeField] private Animator targetAnimator;
 
     // Variabel state untuk sesi tembak
     private int selfShootCount = 0;
@@ -23,6 +24,7 @@ public class ShootScript : MonoBehaviour
         // Reset state setiap kali masuk sesi tembak dari gangsuit
         selfShootCount = 0;
         currentScoreMultiplier = 1;
+        targetAnimator.SetBool("isStage1", true);
 
         if (player.winRPS && !rika.winRPS)
         {
@@ -115,6 +117,7 @@ public class ShootScript : MonoBehaviour
         if (coreLoop != null)
         {
             coreLoop.stage = 1; // Kembali ke fase gangsuit
+            coreLoop.drawCanvas = true;
         }
     }
 }

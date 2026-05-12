@@ -26,7 +26,7 @@ public class CoreLoop : MonoBehaviour
     public int stage = 0;
     
     public Canvas[] menuList;
-    bool drawCanvas;
+    public bool drawCanvas;
 
     void Start()
     {
@@ -105,10 +105,11 @@ public class CoreLoop : MonoBehaviour
             if (drawCanvas)
             {
                 showCanvas(3);
+                shootScript.shoot(playerScript, rikaScript);
                 drawCanvas = !drawCanvas;
             }
-            Debug.Log("[DEBUG] Start shooting");
-            shootScript.shoot(playerScript, rikaScript);
+            // Debug.Log("[DEBUG] Start shooting");
+            
 
             // if shooting session selesai, cek hp, kalau ada yang hp nya 0, game over, kalau gak, kembali gangsuit
         }

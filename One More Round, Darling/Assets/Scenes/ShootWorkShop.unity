@@ -4075,6 +4075,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9c968f019fe894fb8822173d01f620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootScript
+  currentPlayer: {fileID: 0}
+  currentRika: {fileID: 0}
+  coreLoop: {fileID: 0}
+  targetAnimator: {fileID: 0}
 --- !u!114 &1128406702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4159,6 +4163,7 @@ MonoBehaviour:
   - {fileID: 612487532}
   - {fileID: 1305447759}
   - {fileID: 957398966}
+  drawCanvas: 0
 --- !u!1 &1164405350
 GameObject:
   m_ObjectHideFlags: 0
@@ -4241,7 +4246,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1164405353}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128406700}
+        m_TargetAssemblyTypeName: ShootScript, Assembly-CSharp
+        m_MethodName: ShootRika
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1164405353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,7 +4516,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1293871168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128406700}
+        m_TargetAssemblyTypeName: ShootScript, Assembly-CSharp
+        m_MethodName: ShootSelf
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1293871168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5703,6 +5732,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuScript
   start: 0
   playerCamera: {fileID: 330585545}
+  gameCamera: {fileID: 0}
+  mainMenu: {fileID: 0}
+  creditMenu: {fileID: 0}
+  tutorialMenu: {fileID: 0}
+  updateMenu: {fileID: 0}
+  curMenu: {fileID: 0}
 --- !u!4 &1848782502
 Transform:
   m_ObjectHideFlags: 0
