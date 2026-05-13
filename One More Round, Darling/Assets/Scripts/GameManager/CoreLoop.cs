@@ -18,7 +18,9 @@ public class CoreLoop : MonoBehaviour
 
     [Header("Audio Scripts RPS")]
     RPSScript RPSScript;
+    GuessingScript guessingScript;
     ShootScript shootScript;
+
     HpDisplayScript hpScript;
 
     PlayerScript playerScript;
@@ -27,8 +29,11 @@ public class CoreLoop : MonoBehaviour
     public TMP_Text RSPTimerText;
 
     public float RPSStartingTime = 10f;
+    public float GuessStartingTime = 3f;
 
     float RPSCurrentTime;
+    float GuessCurrentTime;
+
     public int stage = 0;
     
     
@@ -39,10 +44,12 @@ public class CoreLoop : MonoBehaviour
         playerScript    = GetComponent<PlayerScript>();
         rikaScript      = GetComponent<RikaScript>();
         shootScript     = GetComponent<ShootScript>();
+        guessingScript  = GetComponent<GuessingScript>();
         hpScript        = GetComponent<HpDisplayScript>();
 
         //menuList        = new Canvas[TOTAL_MENU];
         RPSCurrentTime = RPSStartingTime;
+        GuessCurrentTime = GuessStartingTime;
         drawCanvas = true;
         stage = 1;
     }
@@ -88,26 +95,39 @@ public class CoreLoop : MonoBehaviour
             //valid
             if (result == 2)
             {
-                stage = 3;
+                stage = 2;
                 RPSWorld.GetComponent<Canvas>().enabled = false;
                 drawCanvas = true;
                 RPSCurrentTime = RPSStartingTime;
             }
 
-            //Debug.Log("[DEBUG] Start gangsuit");
+            //Debug.Log("[DEBUG] Start gangsuit
+        }
+
+        // nebak
             //gangsuit == draw -> kembali gangsuit
             //ganguit != draw -> lanjut (menang = arah tangan | kalah = arah kepala
+        if(stage == 2) {
+            if (drawCanvas)
+            {
+                drawCanvas = !drawCanvas;
+                Debug.Log("Canvas drawed 2");
+                showCanvas(2);
 
+            }
+            GuessCurrentTime -= 1 * Time.deltaTime;
 
+            if (guessingScript.guess(playerScript, rikaScript))
+            {
+                //Debug.Log("Continue to shooting");
+                stage = 3;
+                drawCanvas = true;
+            }
         }
 
-        if(stage == 2) { 
-            // nebak
-            // arah kepala == arah tangan -> arah kepala jadi korban, arah tangan jadi pelaku (pegang senjata)
-            // arah kepala != arah tangan -> kembali gangsuit
-        }
 
-
+        // arah kepala == arah tangan -> arah kepala jadi korban, arah tangan jadi pelaku (pegang senjata)
+        // arah kepala != arah tangan -> kembali gangsuit
         // nembak
         if(stage == 3)
         {
