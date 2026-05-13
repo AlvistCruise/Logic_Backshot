@@ -9,11 +9,6 @@ public class InputScript : MonoBehaviour
         playerScript = GetComponent<PlayerScript>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void rock()
     {
         Debug.Log("Player choose rock");
@@ -32,33 +27,62 @@ public class InputScript : MonoBehaviour
 
     public void lookUp()
     {
-
+        if (playerScript.winRPS)
+        {
+            playerScript.handDirection = 1;
+            Debug.Log("Hand: " + playerScript.handDirection);
+        } else
+        {
+            playerScript.headDirection = 1;
+            Debug.Log("Head: " + playerScript.headDirection);
+        }
     }
 
     public void lookDown()
     {
+        if (playerScript.winRPS)
+        {
+            playerScript.handDirection = 3;
+            Debug.Log("Hand: " + playerScript.handDirection);
 
+        }
+        else
+        {
+            playerScript.headDirection = 3;
+            Debug.Log("Head: " + playerScript.headDirection);
+
+        }
     }
 
     public void lookLeft()
     {
+        if (playerScript.winRPS)
+        {
+            playerScript.handDirection = 4;
+            Debug.Log("Hand: " + playerScript.handDirection);
 
+        }
+        else
+        {
+            playerScript.headDirection = 4;
+            Debug.Log("Head: " + playerScript.headDirection);
+
+        }
     }
 
     public void lookRight()
     {
+        if (playerScript.winRPS)
+        {
+            playerScript.handDirection = 2;
+            Debug.Log("Hand: " + playerScript.handDirection);
 
+        }
+        else
+        {
+            playerScript.headDirection = 2;
+            Debug.Log("Head: " + playerScript.headDirection);
+
+        }
     }
-
-    // public void shootYou()
-    // {
-    //     Debug.Log("Player shoot myself");
-    //     shootScript.ShootSelf(playerScript);
-    // }
-
-    // public void shootHer()
-    // {
-    //     Debug.Log("Player shoot Rika");
-    //     shootScript.ShootRika(rikaScript);
-    // }
 }
