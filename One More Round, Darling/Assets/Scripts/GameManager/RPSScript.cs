@@ -46,7 +46,7 @@ public class RPSScript : MonoBehaviour
 
     private void compareHand(int playerHand, int rikaHand)
     {
-        Debug.Log("[DEBUG] Comparing Hand");
+        //Debug.Log("[DEBUG] Comparing Hand");
         int result = 0;
         // 1 == batu | 2 == gunting | 3 == kertas
 
