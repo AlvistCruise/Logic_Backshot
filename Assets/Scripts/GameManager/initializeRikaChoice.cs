@@ -15,6 +15,11 @@ public class initializeRikaChoice : MonoBehaviour
 
     void Start()
     {
+        GenerateNewChoice();
+    }
+
+    public void GenerateNewChoice()
+    {
         rikaChoice = Random.Range(0, 4);
 
         SetRikaChoice();
@@ -51,7 +56,7 @@ public class initializeRikaChoice : MonoBehaviour
     {
         if (rikaChoice == 0)
         {
-            rikaRenderer.sprite = stage1Up;// rika animation
+            rikaRenderer.sprite = stage1Up;
         }
 
         else if (rikaChoice == 1)

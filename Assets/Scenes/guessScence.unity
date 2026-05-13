@@ -648,6 +648,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984fc54a831bd3e4aa61ad1dbb8b2969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComparePlayerAndRikaChoice
+  playerChoiceScript: {fileID: 2057987053}
+  rikaChoiceScript: {fileID: 10474412}
+  timerScript: {fileID: 1889267890}
 --- !u!4 &214646332
 Transform:
   m_ObjectHideFlags: 0
@@ -1369,6 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb878cf2a3066c489930139ff0bb38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::guessTimer
+  i: 0
   playerChoiceScript: {fileID: 2057987053}
   compareScript: {fileID: 214646331}
 --- !u!4 &1889267891

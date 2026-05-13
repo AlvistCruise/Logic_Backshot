@@ -1,29 +1,77 @@
 using UnityEngine;
-using System.Collections;
 
 public class guessTimer : MonoBehaviour
 {
-    int i = 0;
+    public float timer = 0f;
+
     public PlayerChoice playerChoiceScript;
     public ComparePlayerAndRikaChoice compareScript;
+
+    bool roundFinished = false;
+
+    int currentCount = 0;
+
     void Start()
     {
-        StartCoroutine(StartTimer());
+        timer = 0f;
+
+        roundFinished = false;
+
+        currentCount = 0;
+
+        Debug.Log("Timer Started");
     }
 
-    IEnumerator StartTimer()
+    void Update()
     {
-        while (i < 3)
+        if (roundFinished)
         {
-            yield return new WaitForSeconds(0.75f);
-
-            i++;
-
-            Debug.Log(i);
+            return;
         }
 
-        Debug.Log("Time Over");
-        playerChoiceScript.AssignRandomChoice(); // if within the period player dont choose, assign randomly
-        compareScript.StartCompare();
+        timer += Time.deltaTime;
+
+        if (timer >= 0.75f && currentCount == 0)
+        {
+            currentCount = 1;
+            Debug.Log("1");
+        }
+
+        if (timer >= 1.5f && currentCount == 1)
+        {
+            currentCount = 2;
+            Debug.Log("2");
+        }
+
+        if (timer >= 2.25f && currentCount == 2)
+        {
+            currentCount = 3;
+            Debug.Log("3");
+        }
+
+        if (timer >= 2.25f)
+        {
+            roundFinished = true;
+
+            Debug.Log("Time Over");
+
+            if (playerChoiceScript.playerChoice == null || playerChoiceScript.playerChoice == "")
+            {
+                playerChoiceScript.AssignRandomChoice();
+            }
+
+            compareScript.StartCompare();
+        }
+    }
+
+    public void RestartTimer()
+    {
+        timer = 0f;
+
+        roundFinished = false;
+
+        currentCount = 0;
+
+        Debug.Log("Timer Restarted");
     }
 }

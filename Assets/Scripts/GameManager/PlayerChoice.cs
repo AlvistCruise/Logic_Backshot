@@ -44,4 +44,9 @@ public class PlayerChoice : MonoBehaviour
 
         Debug.Log("Random Player Choice: " + playerChoice);
     }
+    public void ResetChoice()
+    {
+        hasChosen = false;
+        playerChoice = "";
+    }
 }
