@@ -10,6 +10,7 @@ TagManager:
   - MainMenu
   - ToggleableObject
   - HpObject
+  - ToggleableGuessMenu
   layers:
   - Default
   - TransparentFX
