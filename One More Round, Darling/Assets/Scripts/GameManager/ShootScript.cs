@@ -41,6 +41,7 @@ public class ShootScript : MonoBehaviour
         {
             shootMenu.GetComponent<Canvas>().enabled = true;
             Debug.Log("[DEBUG] Player menang gangsuit. Giliran Player memilih target.");
+            // resetAnimation();
 
             //TODO: Player shoot
         }
@@ -117,6 +118,25 @@ public class ShootScript : MonoBehaviour
             // KENA RIKA
             Debug.Log($"DOR! Nembak Rika dan ADA PELURU! Rika -1 HP. Player dapat score (Multiplier x{currentScoreMultiplier}).");
             currentRika.hp -= 1;
+            if (currentRika.hp == 2)
+            {
+                targetAnimator.SetBool("isDamage", true);
+                targetAnimator.SetBool("isStage1", false);
+                targetAnimator.SetBool("isStage2", true);
+                Invoke("DelayResetAnim", 0.1f);
+            } else if (currentRika.hp == 1)
+            {
+                targetAnimator.SetBool("isDamage", true);
+                targetAnimator.SetBool("isStage2", false);
+                targetAnimator.SetBool("isStage3", true);
+                Invoke("DelayResetAnim", 0.1f);
+            }
+             else if (currentRika.hp <= 0)
+            {
+                targetAnimator.SetBool("isDamage", true);
+                targetAnimator.SetBool("isStage3", false);
+                Invoke("DelayResetAnim", 0.1f);
+            }
             // TODO: currentRika.TakeDamage(); 
             // TODO: Tambah Score * currentScoreMultiplier
         }
@@ -142,5 +162,18 @@ public class ShootScript : MonoBehaviour
             coreLoop.stage = 1; // Kembali ke fase gangsuit
             coreLoop.drawCanvas = true;
         }
+    }
+
+    private void resetAnimation()
+    {
+        targetAnimator.SetBool("isRock", false);
+        targetAnimator.SetBool("isPaper", false);
+        targetAnimator.SetBool("isScissors", false);
+        targetAnimator.SetBool("isDamage", false);
+    }
+    private void DelayResetAnim()
+    {
+        targetAnimator.SetBool("isDamage", false);
+        resetAnimation();
     }
 }

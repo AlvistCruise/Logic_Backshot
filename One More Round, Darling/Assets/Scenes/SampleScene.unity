@@ -1494,8 +1494,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.23344536, z: 0, w: 0.97236997}
-  m_LocalPosition: {x: -0.72, y: 4.35, z: -11.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.35, z: -9.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4918,8 +4918,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
+  m_sharedMaterial: {fileID: 2158547232788924468, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5091,7 +5091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683e4d57c6dc8dc4e8dd7a4c97007be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RikaScript
-  hp: 0
+  hp: 3
   RPSHandIdx: 0
   guessDirection: 0
   RPSDecided: 0
@@ -5109,7 +5109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ba23d6f79889d49989c77540c27376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
-  hp: 0
+  hp: 3
   score: 0
   RPSHandIdx: 0
   guessDirection: 0
@@ -5614,7 +5614,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 330585545}
-  m_PlaneDistance: 11
+  m_PlaneDistance: 50
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -7912,7 +7912,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834334487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
@@ -8436,7 +8436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1109612337879440564, guid: 452b9bd1e9c44bb4891ed8d5cf6984d8, type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3761756526660057366, guid: 452b9bd1e9c44bb4891ed8d5cf6984d8, type: 3}
       propertyPath: m_LocalPosition.x

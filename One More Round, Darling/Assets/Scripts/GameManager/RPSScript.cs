@@ -66,6 +66,8 @@ public class RPSScript : MonoBehaviour
         if (result == playerHand)
         {
             targetAnimator.SetBool("isDamage", true);
+            Invoke("DelayResetAnim", 0.1f);
+            // targetAnimator.SetBool("isDamage", false);
             Debug.Log("PLAYER WIN RPS");
             playerScript.winRPS = true;
             rikaScript.winRPS = false;
@@ -91,7 +93,12 @@ public class RPSScript : MonoBehaviour
         targetAnimator.SetBool("isRock", false);
         targetAnimator.SetBool("isPaper", false);
         targetAnimator.SetBool("isScissors", false);
+        // targetAnimator.SetBool("isDamage", false);
+    }
+    private void DelayResetAnim()
+    {
         targetAnimator.SetBool("isDamage", false);
+        resetAnimation();
     }
 
 

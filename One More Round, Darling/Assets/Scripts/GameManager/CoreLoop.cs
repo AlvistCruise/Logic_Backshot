@@ -74,6 +74,7 @@ public class CoreLoop : MonoBehaviour
             if (result == 2)
             {
                 stage = 3;
+                RPSWorld.GetComponent<Canvas>().enabled = false;
                 drawCanvas = true;
                 RPSCurrentTime = -1;
             }
@@ -83,6 +84,7 @@ public class CoreLoop : MonoBehaviour
             {
                 RPSCurrentTime = RPSStartingTime;
                 //TODO: RANDOM SELECT
+                RPSWorld.GetComponent<Canvas>().enabled = false;
                 stage = 3;
                 drawCanvas = true;
 
