@@ -4,10 +4,15 @@ public class RikaScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int hp;
+    
     public int RPSHandIdx;
-    public int guessDirection;
+    public int headDirection;
+    public int handDirection;
+
     public bool RPSDecided;
-    bool directionDecided;
+    public bool headDecided;
+    public bool handDecided;
+    //bool directionDecided;
 
     public bool winRPS;
     public bool attacker;
@@ -15,11 +20,9 @@ public class RikaScript : MonoBehaviour
     void Start()
     {
         hp = 3;
-        
-        RPSHandIdx = 0;
-        guessDirection = 0;
-        directionDecided = false;
-        RPSDecided = false;
+
+        RPSHandIdx = handDirection = headDirection = 0;
+        RPSDecided = headDecided = handDecided = false;
 
         winRPS = false;
         attacker = false;
@@ -31,14 +34,30 @@ public class RikaScript : MonoBehaviour
     {
         if (!RPSDecided)
         {
-            setRPSHand(Random.Range(1, 4));
+            RPSHandIdx = Random.Range(1, 4);
+            Debug.Log($"[DEBUG] Rika RPS selected idx: {RPSHandIdx}");
             RPSDecided = !RPSDecided;
         }
     }
 
-    public void setRPSHand(int handIdx)
+    public void decideHandDirection()
     {
-        this.RPSHandIdx = handIdx;
-        Debug.Log("[DBEUG] Rika selected idx: " + handIdx);
+        if (!handDecided)
+        {
+            handDirection = Random.Range(1, 5);
+            Debug.Log($"[DEBUG] Rika hand selected idx: {handDirection}");
+            handDecided = !handDecided;
+        }
+    }
+
+    public void decideHeadDirection()
+    {
+
+        if (!headDecided)
+        {
+            headDirection = Random.Range(1, 5);
+            Debug.Log($"[DEBUG] Rika head selected idx: {headDirection}");
+            headDecided = !headDecided;
+        }
     }
 }
