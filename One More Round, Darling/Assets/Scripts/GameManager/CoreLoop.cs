@@ -11,6 +11,7 @@ public class CoreLoop : MonoBehaviour
 {
     private const int TOTAL_MENU = 4;
     public MenuScript menuScript;
+    public GameObject RPSWorld;
 
     RPSScript RPSScript;
     ShootScript shootScript;
@@ -55,6 +56,8 @@ public class CoreLoop : MonoBehaviour
             {
                 Debug.Log("Canvas drawed: 1");
                 showCanvas(1);
+                // showCanvas(4);
+                RPSWorld.GetComponent<Canvas>().enabled = true;
                 drawCanvas = !drawCanvas;
             }
             RPSCurrentTime -= 1 * Time.deltaTime;
