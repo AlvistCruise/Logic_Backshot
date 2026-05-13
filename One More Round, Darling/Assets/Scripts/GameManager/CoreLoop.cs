@@ -9,10 +9,14 @@ using UnityEngine.Rendering.Universal.Internal;
 
 public class CoreLoop : MonoBehaviour
 {
+    [Header("Menus")]
     private const int TOTAL_MENU = 4;
     public MenuScript menuScript;
     public GameObject RPSWorld;
+    public Canvas[] menuList;
+    public bool drawCanvas;
 
+    [Header("Audio Scripts RPS")]
     RPSScript RPSScript;
     ShootScript shootScript;
     HpDisplayScript hpScript;
@@ -27,9 +31,7 @@ public class CoreLoop : MonoBehaviour
     float RPSCurrentTime;
     public int stage = 0;
     
-    public Canvas[] menuList;
-    public bool drawCanvas;
-
+    
     void Start()
     {
 
