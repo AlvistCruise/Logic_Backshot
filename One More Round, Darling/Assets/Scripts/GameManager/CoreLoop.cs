@@ -39,7 +39,7 @@ public class CoreLoop : MonoBehaviour
         playerScript    = GetComponent<PlayerScript>();
         rikaScript      = GetComponent<RikaScript>();
         shootScript     = GetComponent<ShootScript>();
-        hpScript = GetComponent<HpDisplayScript>();
+        hpScript        = GetComponent<HpDisplayScript>();
 
         //menuList        = new Canvas[TOTAL_MENU];
         RPSCurrentTime = RPSStartingTime;
@@ -68,29 +68,37 @@ public class CoreLoop : MonoBehaviour
 
             RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
 
+            if (RPSCurrentTime <= 0)
+            {
+                //TODO: RANDOM SELECT + ANIMASI GANGSUIT
+
+                playerScript.RPSHandIdx = Random.Range(1, 4);
+                Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
+
+                //RPSWorld.GetComponent<Canvas>().enabled = false;
+                //stage = 3;
+                //drawCanvas = true;
+
+            }
+
             int result = RPSScript.gangsuit();
+
             //draw
             if (result == 1) RPSCurrentTime = RPSStartingTime;
-           
             //valid
             if (result == 2)
             {
                 stage = 3;
                 RPSWorld.GetComponent<Canvas>().enabled = false;
                 drawCanvas = true;
-                RPSCurrentTime = -1;
-            }
-
-
-            if(RPSCurrentTime <= 0)
-            {
                 RPSCurrentTime = RPSStartingTime;
-                //TODO: RANDOM SELECT
-                RPSWorld.GetComponent<Canvas>().enabled = false;
-                stage = 3;
-                drawCanvas = true;
-
             }
+
+            //Debug.Log("[DEBUG] Start gangsuit");
+            //gangsuit == draw -> kembali gangsuit
+            //ganguit != draw -> lanjut (menang = arah tangan | kalah = arah kepala
+
+
         }
 
         if(stage == 2) { 
@@ -98,12 +106,6 @@ public class CoreLoop : MonoBehaviour
             // arah kepala == arah tangan -> arah kepala jadi korban, arah tangan jadi pelaku (pegang senjata)
             // arah kepala != arah tangan -> kembali gangsuit
         }
-
-
-        //Debug.Log("[DEBUG] Start gangsuit");
-        //gangsuit == draw -> kembali gangsuit
-        //ganguit != draw -> lanjut (menang = arah tangan | kalah = arah kepala)
-
 
 
         // nembak

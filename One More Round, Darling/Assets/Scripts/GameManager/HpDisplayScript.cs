@@ -41,14 +41,14 @@ public class HpDisplayScript : MonoBehaviour
         for(int i = 0; i < player.hp; i++)
         {
             Vector3 hpLoc = new Vector3(playerHpContainer.transform.position.x + (i * 0.5f), playerHpContainer.transform.position.y, playerHpContainer.transform.position.z);
-            Debug.Log($"Player hp cube {i+1} : {hpLoc}");
+            //Debug.Log($"Player hp cube {i+1} : {hpLoc}");
             Instantiate(hpObj, hpLoc, playerHpContainer.transform.rotation);
         }
 
         for (int i = 0; i < rika.hp; i++)
         {
             Vector3 hpLoc = new Vector3(rikaHpContainer.transform.position.x + (i * 0.5f), rikaHpContainer.transform.position.y, rikaHpContainer.transform.position.z);
-            Debug.Log($"Rika hp cube {i + 1} : {hpLoc}");
+            //Debug.Log($"Rika hp cube {i + 1} : {hpLoc}");
             Instantiate(hpObj, hpLoc, rikaHpContainer.transform.rotation);
         }
 
