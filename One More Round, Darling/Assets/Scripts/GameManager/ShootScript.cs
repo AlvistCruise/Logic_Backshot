@@ -24,6 +24,9 @@ public class ShootScript : MonoBehaviour
 
     public void shoot(PlayerScript player, RikaScript rika)
     {
+
+        //TODO: DECIDE DEPENDS ON GUESSING
+
         Debug.Log("SHOOTING START MTFKR");
         Debug.Log($"[DEBUG] Player: {player.winRPS}");
         Debug.Log($"[DEBUG] Rika: {rika.winRPS}");
@@ -36,18 +39,20 @@ public class ShootScript : MonoBehaviour
         currentScoreMultiplier = 1;
 
         //targetAnimator.SetBool("isStage1", true);
+        
+        // arah kepala == arah tangan -> arah kepala jadi korban, arah tangan jadi pelaku (pegang senjata)
 
-        if (player.winRPS && !rika.winRPS)
+        if (player.attacker && !rika.attacker)
         {
+            Debug.Log("[DEBUG] Player menjadi penembak.");
             shootMenu.GetComponent<Canvas>().enabled = true;
-            Debug.Log("[DEBUG] Player menang gangsuit. Giliran Player memilih target.");
             // resetAnimation();
 
             //TODO: Player shoot
         }
-        else if (!player.winRPS && rika.winRPS)
+        else if (!player.attacker && rika.attacker)
         {
-            Debug.Log("[DEBUG] Rika menang gangsuit. Rika otomatis menembak Player!");
+            Debug.Log("[DEBUG] Rika menjadi penembak");
             shootMenu.GetComponent<Canvas>().enabled = false;
             BotShootPlayer();
         }

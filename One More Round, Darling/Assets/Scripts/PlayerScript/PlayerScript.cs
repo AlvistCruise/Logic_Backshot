@@ -5,8 +5,10 @@ public class PlayerScript : MonoBehaviour
 
     public int hp;
     public int score;
+
     public int RPSHandIdx;
-    public int guessDirection;
+    public int headDirection;
+    public int handDirection;
 
     public bool winRPS;
     public bool attacker;
@@ -14,8 +16,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        RPSHandIdx = 0;
-        guessDirection = 0;
+        RPSHandIdx = handDirection = headDirection = 0;
         score = 0;
         hp = 3;
         winRPS = false;
