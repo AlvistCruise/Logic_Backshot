@@ -13,6 +13,11 @@ public class MenuScript : MonoBehaviour
     public GameObject creditMenu;
     public GameObject tutorialMenu;
 
+    public GameObject RPSMenu;
+    public GameObject RPSWorld;
+    public GameObject lookGuessMenu;
+    public GameObject shootTargetMenu;
+
     public Stack<GameObject> menuStack;
 
     [SerializeField] private GameObject updateMenu ;
@@ -20,6 +25,13 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
+        (creditMenu.GetComponent<Canvas>()).enabled = false;
+        (tutorialMenu.GetComponent<Canvas>()).enabled = false;
+        (RPSMenu.GetComponent<Canvas>()).enabled = false;
+        (RPSWorld.GetComponent<Canvas>()).enabled = false;
+        (lookGuessMenu.GetComponent<Canvas>()).enabled = false;
+        (shootTargetMenu.GetComponent<Canvas>()).enabled = false;
+
         menuStack = new Stack<GameObject>();
         start = false;
 
