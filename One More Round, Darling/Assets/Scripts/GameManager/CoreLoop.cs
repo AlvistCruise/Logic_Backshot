@@ -15,6 +15,7 @@ public class CoreLoop : MonoBehaviour
     private const int TOTAL_MENU = 4;
     public MenuScript menuScript;
     public GameObject RPSWorld;
+    public GameObject LookGuessWorld;
     public Canvas[] menuList;
     public bool drawCanvas;
 
@@ -41,6 +42,7 @@ public class CoreLoop : MonoBehaviour
     float GuessCurrentTime;
 
     public int stage = 0;
+    private bool isGangsuitRunning = false;
     
     
     void Start()
@@ -55,9 +57,9 @@ public class CoreLoop : MonoBehaviour
 
         //menuList        = new Canvas[TOTAL_MENU];
         RPSCurrentTime = RPSStartingTime;
-        GuessCurrentTime = GuessStartingTime;
+        GuessCurrentTime = GuessStartingTime; //guess fisrt timer setter
         drawCanvas = true;
-        countdownSession = intervalSession = false;
+        countdownSession = intervalSession = false; //count still paused at the start of the game || Interval Start when countdown end
         stage = 1;
     }
 
@@ -70,48 +72,57 @@ public class CoreLoop : MonoBehaviour
 
         //gangsuit
         if(stage == 1)
+{
+    if (drawCanvas)
+    {
+        Debug.Log("Canvas drawed: 1");
+        showCanvas(1);
+        RPSWorld.GetComponent<Canvas>().enabled = true;
+        drawCanvas = !drawCanvas;
+    }
+
+    // CEK GEMBOK: Hanya jalankan timer dan proses gangsuit jika gembok terbuka (false)
+    if (!isGangsuitRunning)
+    {
+        RPSCurrentTime -= 1 * Time.deltaTime;
+        RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
+
+        if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
         {
-            if (drawCanvas)
-            {
-                Debug.Log("Canvas drawed: 1");
-                showCanvas(1);
-                RPSWorld.GetComponent<Canvas>().enabled = true;
-                drawCanvas = !drawCanvas;
-            }
-            RPSCurrentTime -= 1 * Time.deltaTime;
-
-            //Debug.Log("Sec: " + RPSCurrentTime);
-
-            RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
-
-            if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
-            {
-                //TODO: RANDOM SELECT + ANIMASI GANGSUIT
-
-                playerScript.RPSHandIdx = Random.Range(1, 4);
-                Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
-
-                //RPSWorld.GetComponent<Canvas>().enabled = false;
-                //stage = 3;
-                //drawCanvas = true;
-
-            }
-
-            int result = await RPSScript.gangsuit();
-
-            //draw
-            if (result == 1) RPSCurrentTime = RPSStartingTime;
-            //valid
-            if (result == 2)
-            {
-                stage = 2;
-                RPSWorld.GetComponent<Canvas>().enabled = false;
-                drawCanvas = true;
-                RPSCurrentTime = RPSStartingTime;
-            }
-
-            //Debug.Log("[DEBUG] Start gangsuit
+            //TODO: RANDOM SELECT + ANIMASI GANGSUIT
+            playerScript.RPSHandIdx = Random.Range(1, 4);
+            Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
         }
+
+        // 1. KUNCI GEMBOKNYA! 
+        // Ini akan mencegah frame berikutnya masuk ke blok ini lagi.
+        isGangsuitRunning = true;
+
+        // 2. TUNGGU HASIL. 
+        // Jika belum ada yang milih, ini mengembalikan 0 secara instan.
+        // Jika sudah milih, ini akan pause selama 2 detik di baris ini.
+        int result = await RPSScript.gangsuit();
+
+        // draw
+        if (result == 1) 
+        {
+            RPSCurrentTime = RPSStartingTime;
+        }
+        // valid
+        else if (result == 2) // Gunakan else if agar lebih aman
+        {
+            stage = 2;
+            RPSWorld.GetComponent<Canvas>().enabled = false;
+            drawCanvas = true;
+            RPSCurrentTime = RPSStartingTime;
+        }
+
+        // 3. BUKA GEMBOKNYA!
+        // Setelah delay 2 detik selesai (atau langsung jika return 0), gembok dibuka
+        // supaya timer dan pengecekan ronde selanjutnya bisa berjalan lagi.
+        isGangsuitRunning = false;
+    }
+}
 
         // nebak
             //gangsuit == draw -> kembali gangsuit
@@ -122,6 +133,7 @@ public class CoreLoop : MonoBehaviour
                 drawCanvas = !drawCanvas;
                 Debug.Log("Canvas drawed 2");
                 showCanvas(2);
+                LookGuessWorld.GetComponent<Canvas>().enabled = true;
                 GuessCountdownText.enabled = true;
                 GuessIntervalText.enabled = false;
                 GuessCurrentTime = GuessStartingTime;
@@ -175,6 +187,8 @@ public class CoreLoop : MonoBehaviour
                     stage = 3;
                     drawCanvas = true;
                     //GuessCurrentTime = GuessStartingTime;
+                    // MATIKAN UI LOOK GUESS WORLD DI SINI
+                    LookGuessWorld.GetComponent<Canvas>().enabled = false;
                 }
             }
         }

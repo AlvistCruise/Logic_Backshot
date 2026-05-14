@@ -4,6 +4,7 @@ public class GuessingScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public CoreLoop coreLoop;
+    public Animator[] arrows;
     
     void Start()
     {
@@ -51,6 +52,7 @@ public class GuessingScript : MonoBehaviour
             Debug.Log("[DEBUG] Different direction! back to gangsuit");
             coreLoop.stage = 1;
             coreLoop.drawCanvas = true;
+            coreLoop.LookGuessWorld.GetComponent<Canvas>().enabled = false;
             resetDirection(player, rika);
             return false;
         }
@@ -77,6 +79,7 @@ public class GuessingScript : MonoBehaviour
             Debug.Log("[DEBUG] Different direction! back to gangsuit");
             coreLoop.stage = 1;
             coreLoop.drawCanvas = true;
+            coreLoop.LookGuessWorld.GetComponent<Canvas>().enabled = false;
             resetDirection(player, rika);
             return false;
         }

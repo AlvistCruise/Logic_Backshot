@@ -46,8 +46,8 @@ public class RPSScript : MonoBehaviour
                 resetAnimation();
                 return 1;
             }
-            await Task.Delay(2000);
             compareHand(playerScript.RPSHandIdx, rikaScript.RPSHandIdx);
+            await Task.Delay(2000);
             resetHand();
             return 2;
         }
