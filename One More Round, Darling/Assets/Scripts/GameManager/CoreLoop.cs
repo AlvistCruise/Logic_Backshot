@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class CoreLoop : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class CoreLoop : MonoBehaviour
         stage = 1;
     }
 
-    void Update()
+    async Task Update()
     {
         if (!menuScript.start)return;
         hpScript.updateHp();
@@ -74,7 +75,6 @@ public class CoreLoop : MonoBehaviour
             {
                 Debug.Log("Canvas drawed: 1");
                 showCanvas(1);
-                // showCanvas(4);
                 RPSWorld.GetComponent<Canvas>().enabled = true;
                 drawCanvas = !drawCanvas;
             }
@@ -84,7 +84,7 @@ public class CoreLoop : MonoBehaviour
 
             RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
 
-            if (RPSCurrentTime <= 0)
+            if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
             {
                 //TODO: RANDOM SELECT + ANIMASI GANGSUIT
 
@@ -97,7 +97,7 @@ public class CoreLoop : MonoBehaviour
 
             }
 
-            int result = RPSScript.gangsuit();
+            int result = await RPSScript.gangsuit();
 
             //draw
             if (result == 1) RPSCurrentTime = RPSStartingTime;

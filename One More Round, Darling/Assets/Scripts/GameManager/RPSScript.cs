@@ -2,12 +2,14 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class RPSScript : MonoBehaviour
 {
     public RikaScript rikaScript;
     public PlayerScript playerScript;
     [SerializeField] private Animator targetAnimator;
+    public Image IMGRock, IMGPaper, IMGScissors, IMGPopup, IMGRandom; 
     //bool resultConclusded;
     //int turnIdx
 
@@ -20,23 +22,31 @@ public class RPSScript : MonoBehaviour
     }
 
 
-    public int gangsuit()
+    public async Task<int> gangsuit()
     {
         rikaScript.decideHand();
         // animation
         if (rikaScript.RPSHandIdx == 1) targetAnimator.SetBool("isRock", true);
         if (rikaScript.RPSHandIdx == 2) targetAnimator.SetBool("isPaper", true);
         if (rikaScript.RPSHandIdx == 3) targetAnimator.SetBool("isScissors", true);
+        IMGPopup.enabled = true;
+        IMGRandom.enabled = true;
 
         if (rikaScript.RPSHandIdx != 0 && playerScript.RPSHandIdx != 0)
         {
+            IMGRandom.enabled = false;
+            if (rikaScript.RPSHandIdx == 1) IMGRock.enabled = true;
+            if (rikaScript.RPSHandIdx == 2) IMGPaper.enabled = true;
+            if (rikaScript.RPSHandIdx == 3) IMGScissors.enabled = true;
             if (rikaScript.RPSHandIdx == playerScript.RPSHandIdx)
             {
                 Debug.Log("[DEBUG] Draw!");
+                await Task.Delay(2000);
                 resetHand();
                 resetAnimation();
                 return 1;
             }
+            await Task.Delay(2000);
             compareHand(playerScript.RPSHandIdx, rikaScript.RPSHandIdx);
             resetHand();
             return 2;
@@ -86,6 +96,11 @@ public class RPSScript : MonoBehaviour
         rikaScript.RPSHandIdx = 0;
         playerScript.RPSHandIdx = 0;
         rikaScript.RPSDecided = false;
+        IMGRock.enabled = false;
+        IMGPaper.enabled = false;
+        IMGScissors.enabled = false;
+        IMGRandom.enabled = false;
+        IMGPopup.enabled = false;
     }
 
     private void resetAnimation()
