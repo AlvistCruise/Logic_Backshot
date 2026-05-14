@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using System.Threading.Tasks;
 
 
 public class ShootScript : MonoBehaviour
@@ -12,10 +13,13 @@ public class ShootScript : MonoBehaviour
     public GameObject shootMenu;
 
     [SerializeField] private Animator targetAnimator;
+    [SerializeField] private Animator gunAnimator;
 
     // Variabel state untuk sesi tembak
     private int selfShootCount = 0;
     private int currentScoreMultiplier = 1;
+
+    private bool isShootingActionRunning = false;
 
     void Start()
     {
@@ -37,6 +41,11 @@ public class ShootScript : MonoBehaviour
         // Reset state setiap kali masuk sesi tembak dari gangsuit
         selfShootCount = 0;
         currentScoreMultiplier = 1;
+        isShootingActionRunning = false;
+
+        // Reset Animator Senjata
+        gunAnimator.SetBool("PlayerWin", false);
+        gunAnimator.SetBool("RikaWin", false);
 
         //targetAnimator.SetBool("isStage1", true);
         
@@ -49,19 +58,32 @@ public class ShootScript : MonoBehaviour
             // resetAnimation();
 
             //TODO: Player shoot
+            // Pindahkan pistol ke Player
+            // gunAnimator.SetBool("PlayerWin", true);
         }
         else if (!player.attacker && rika.attacker)
         {
             Debug.Log("[DEBUG] Rika menjadi penembak");
             shootMenu.GetComponent<Canvas>().enabled = false;
+
+            // Pindahkan pistol ke Rika
+            gunAnimator.SetBool("RikaWin", true);
             BotShootPlayer();
         }
     }
 
-    private void BotShootPlayer()
+    private async void BotShootPlayer()
     {
         bool hasBullet = Random.value > 0.5f; 
         
+        // 1. Beritahu Animator apakah peluru isi atau kosong
+        gunAnimator.SetBool("Shoot", hasBullet);
+
+        // 2. TUNGGU ANIMASI MENEMBAK SELESAI (Misal: 3 detik / 3000 ms)
+        // Sesuaikan angka 3000 ini dengan durasi animasi aslimu!
+        await Task.Delay(4600);
+
+        // 3. BARU LAKUKAN PENGURANGAN HP SETELAH ANIMASI BERHENTI
         if (hasBullet)
         {
             Debug.Log("DOR! Rika menembak player dan ADA PELURU! Health player berkurang.");
@@ -77,16 +99,34 @@ public class ShootScript : MonoBehaviour
     }
 
     // Dipanggil saat player klik tombol "Tembak Diri Sendiri"
-    public void ShootSelf()
+    public async void ShootSelf()
     {
-        if (selfShootCount >= 2)
-        {
-            // Jika sudah 2x hoki nembak diri sendiri, paksa player untuk tembak Rika
-            Debug.Log("Batas nembak diri sendiri habis (Maks 2x)! Sekarang wajib tembak Rika.");
-            return; 
-        }
+
+        if (isShootingActionRunning || selfShootCount >= 2) return;
+        isShootingActionRunning = true;
+
+        // 1. SEMBUNYIKAN UI SAAT ANIMASI BERJALAN
+        shootMenu.GetComponent<Canvas>().enabled = false;
 
         bool hasBullet = Random.value > 0.5f; 
+
+        // Catatan: Pastikan kamu punya animasi "GunPlayerToPlayer" jika player nembak diri sendiri
+        // Untuk sekarang kita asumsikan pakai animasi "Shoot" yang sama
+        // 2. MAIN KAN ANIMASI: Player ambil pistol & nembak
+        gunAnimator.SetBool("PlayerWin", true); 
+        gunAnimator.SetBool("Shoot", hasBullet);
+
+        // 3. TUNGGU ANIMASI SELESAI
+        await Task.Delay(4600);
+
+        // if (selfShootCount >= 2)
+        // {
+        //     // Jika sudah 2x hoki nembak diri sendiri, paksa player untuk tembak Rika
+        //     Debug.Log("Batas nembak diri sendiri habis (Maks 2x)! Sekarang wajib tembak Rika.");
+        //     return; 
+        // }
+
+        // bool hasBullet = Random.value > 0.5f; 
 
         if (hasBullet) 
         {
@@ -114,19 +154,45 @@ public class ShootScript : MonoBehaviour
 
             Debug.Log($"KLIK! Peluru KOSONG! (Hoki ke-{selfShootCount}/2). Multiplier skor sekarang x{currentScoreMultiplier}. Dikasih kesempatan lagi! [Current score: {currentPlayer.score}]");
             // Sesi belum berakhir. Player bisa tekan tombol UI lagi (ShootSelf atau ShootRika).
+
+            // Reset state senjata kembali ke meja (opsional, tergantung loop animasimu)
+            gunAnimator.SetBool("PlayerWin", false);
+            
+            // MUNCULKAN UI LAGI karena player dapat giliran lagi!
+            shootMenu.GetComponent<Canvas>().enabled = true;
+
+            // Buka kunci lagi karena sesi belum berakhir (player masih bisa nembak)
+            isShootingActionRunning = false;
         }
     }
 
     // Dipanggil saat player klik tombol "Tembak Rika"
-    public void ShootRika()
+    public async void ShootRika()
     {
+        // Cegah player spam klik tombol
+        if (isShootingActionRunning) return; 
+        isShootingActionRunning = true;
+
+        // 1. SEMBUNYIKAN UI SAAT ANIMASI BERJALAN
+        shootMenu.GetComponent<Canvas>().enabled = false;
+
         bool hasBullet = Random.value > 0.5f; 
 
+        // 2. MAIN KAN ANIMASI: Player ambil pistol & nembak
+        gunAnimator.SetBool("PlayerWin", true); 
+        gunAnimator.SetBool("Shoot", hasBullet);
+
+        // 3. TUNGGU ANIMASI SELESAI
+        await Task.Delay(4600);
+
+        // 4. Kurangi HP
         if (hasBullet)
         {
             // KENA RIKA
             Debug.Log($"DOR! Nembak Rika dan ADA PELURU! Rika -1 HP. Player dapat score (Multiplier x{currentScoreMultiplier}).");
             currentRika.hp -= 1;
+
+            // Logika pergantian stage HP Rika
             if (currentRika.hp == 2)
             {
                 targetAnimator.SetBool("isDamage", true);
@@ -164,6 +230,12 @@ public class ShootScript : MonoBehaviour
         Debug.Log("[DEBUG] Sesi tembak selesai. Kembali ke stage Gangsuit.");
         
         // TODO: Cek kondisi HP Player dan Rika di sini untuk trigger Game Over
+        // Pastikan UI mati saat keluar dari sesi tembak
+        shootMenu.GetComponent<Canvas>().enabled = false;
+
+        // Reset state senjata kembali ke tengah
+        gunAnimator.SetBool("PlayerWin", false);
+        gunAnimator.SetBool("RikaWin", false);
         
         if (coreLoop != null)
         {
