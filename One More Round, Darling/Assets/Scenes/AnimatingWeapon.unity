@@ -141,23 +141,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.883
+      value: 0.39800006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.055
+      value: -0.021899939
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.076
+      value: 0.059299946
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.85211986
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.52334666
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalRotation.y
@@ -165,11 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000029802322
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -63.114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2cc2940b133e7b84eb1f1afa2c32e9b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7239,15 +7239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuessingScript
   coreLoop: {fileID: 0}
-  arrows:
-  - {fileID: 1960570376}
-  - {fileID: 725895360}
-  - {fileID: 1360366891}
-  - {fileID: 721028767}
-  - {fileID: 241113466}
-  - {fileID: 497788201}
-  - {fileID: 1028074072}
-  - {fileID: 1082212095}
+  arrows: []
 --- !u!4 &1142578793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4856988541386d040968e5d6d35bb4ee, type: 3}
