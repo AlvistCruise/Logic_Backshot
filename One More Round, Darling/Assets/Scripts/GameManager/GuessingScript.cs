@@ -5,6 +5,7 @@ public class GuessingScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public CoreLoop coreLoop;
     public Animator[] arrows;
+    public Image IMGRandomArrow;
     
     void Start()
     {
@@ -38,7 +39,8 @@ public class GuessingScript : MonoBehaviour
 
         rika.decideHeadDirection();
         if (player.handDirection == 0 || rika.headDirection == 0) return false;
-        
+        // StopAnimAndGetArrow();
+
         Debug.Log($"[DEBUG] Player Hand: {player.handDirection} | Rika Head: {rika.headDirection}");
         if (player.handDirection == rika.headDirection)
         {
@@ -63,6 +65,7 @@ public class GuessingScript : MonoBehaviour
     {
         rika.decideHandDirection();
         if (player.headDirection == 0 || rika.handDirection == 0) return false;
+        // StopAnimAndGetArrow();
 
         Debug.Log($"[DEBUG] Player Hand: {player.headDirection} | Rika Head: {rika.handDirection}");
         if (rika.handDirection == player.headDirection)
@@ -91,5 +94,14 @@ public class GuessingScript : MonoBehaviour
         player.handDirection = rika.handDirection = 0;
         player.headDirection = rika.headDirection = 0;
         rika.headDecided = rika.handDecided = false;
+    }
+
+    public void StopAnimAndGetArrow()
+    {
+        for (int i = 0; i < arrows.Length; i++)
+        {
+            arrows[i].enabled = false;
+            // tranform quaternion 0,0, (nilai dari rika decide) 1 == up 0 | 2 == right -90 | 3 == down -180 | 4 == left -270
+        }
     }
 }

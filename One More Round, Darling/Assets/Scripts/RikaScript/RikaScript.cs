@@ -17,6 +17,8 @@ public class RikaScript : MonoBehaviour
     public bool winRPS;
     public bool attacker;
 
+    GuessingScript guessingScript;
+
     void Start()
     {
         hp = 3;
@@ -46,6 +48,7 @@ public class RikaScript : MonoBehaviour
         {
             handDirection = Random.Range(1, 5);
             Debug.Log($"[DEBUG] Rika hand selected idx: {handDirection}");
+            // guessingScript.StopAnimAndGetArrow();
             handDecided = !handDecided;
         }
     }
@@ -57,6 +60,7 @@ public class RikaScript : MonoBehaviour
         {
             headDirection = Random.Range(1, 5);
             Debug.Log($"[DEBUG] Rika head selected idx: {headDirection}");
+            // guessingScript.StopAnimAndGetArrow();
             headDecided = !headDecided;
         }
     }
