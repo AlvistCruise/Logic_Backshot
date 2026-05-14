@@ -5,7 +5,7 @@ public class GuessingScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public CoreLoop coreLoop;
     public Animator[] arrows;
-    public Image IMGRandomArrow;
+    // public Image IMGRandomArrow;
     
     void Start()
     {
