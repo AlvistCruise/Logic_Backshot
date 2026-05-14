@@ -13,8 +13,8 @@ public class GuessingScript : MonoBehaviour
     public Image[] popUpArrow;
 
     private bool stopAnim = true;
-
     private int[] arrowRotation = { 0, -90, -180, -270 };
+
     // public Image IMGRandomArrow;
     public GameObject GUESS_UI;
     public Image PlayerGuessUi;
