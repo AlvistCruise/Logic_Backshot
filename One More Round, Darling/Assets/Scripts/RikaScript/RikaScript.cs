@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class RikaScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int hp;
     
     public int RPSHandIdx;
@@ -48,8 +47,8 @@ public class RikaScript : MonoBehaviour
         {
             handDirection = Random.Range(1, 5);
             Debug.Log($"[DEBUG] Rika hand selected idx: {handDirection}");
-            // guessingScript.StopAnimAndGetArrow();
             handDecided = !handDecided;
+            //guessingScript.StopAnimAndGetArrow();
         }
     }
 
@@ -60,8 +59,8 @@ public class RikaScript : MonoBehaviour
         {
             headDirection = Random.Range(1, 5);
             Debug.Log($"[DEBUG] Rika head selected idx: {headDirection}");
-            // guessingScript.StopAnimAndGetArrow();
             headDecided = !headDecided;
+            //guessingScript.StopAnimAndGetArrow();
         }
     }
 }

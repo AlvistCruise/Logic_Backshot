@@ -29,6 +29,8 @@ public class CoreLoop : MonoBehaviour
     PlayerScript playerScript;
     RikaScript rikaScript;
 
+    public GameObject GUESS_UI;
+
     public TMP_Text RSPTimerText;
     public TMP_Text GuessCountdownText;
     public TMP_Text GuessIntervalText;
@@ -38,12 +40,14 @@ public class CoreLoop : MonoBehaviour
     public bool countdownSession;
     public bool intervalSession;
 
+
+
     float RPSCurrentTime;
     float GuessCurrentTime;
 
     public int stage = 0;
     private bool isGangsuitRunning = false;
-    
+    private bool isGuessRunning = false;
     
     void Start()
     {
@@ -72,57 +76,57 @@ public class CoreLoop : MonoBehaviour
 
         //gangsuit
         if(stage == 1)
-{
-    if (drawCanvas)
-    {
-        Debug.Log("Canvas drawed: 1");
-        showCanvas(1);
-        RPSWorld.GetComponent<Canvas>().enabled = true;
-        drawCanvas = !drawCanvas;
-    }
-
-    // CEK GEMBOK: Hanya jalankan timer dan proses gangsuit jika gembok terbuka (false)
-    if (!isGangsuitRunning)
-    {
-        RPSCurrentTime -= 1 * Time.deltaTime;
-        RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
-
-        if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
         {
-            //TODO: RANDOM SELECT + ANIMASI GANGSUIT
-            playerScript.RPSHandIdx = Random.Range(1, 4);
-            Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
+            if (drawCanvas)
+            {
+                Debug.Log("Canvas drawed: 1");
+                showCanvas(1);
+                RPSWorld.GetComponent<Canvas>().enabled = true;
+                drawCanvas = !drawCanvas;
+            }
+
+            // CEK GEMBOK: Hanya jalankan timer dan proses gangsuit jika gembok terbuka (false)
+            if (!isGangsuitRunning)
+            {
+                RPSCurrentTime -= 1 * Time.deltaTime;
+                RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
+
+                if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
+                {
+                    //TODO: RANDOM SELECT + ANIMASI GANGSUIT
+                    playerScript.RPSHandIdx = Random.Range(1, 4);
+                    Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
+                }
+
+                // 1. KUNCI GEMBOKNYA! 
+                // Ini akan mencegah frame berikutnya masuk ke blok ini lagi.
+                isGangsuitRunning = true;
+
+                // 2. TUNGGU HASIL. 
+                // Jika belum ada yang milih, ini mengembalikan 0 secara instan.
+                // Jika sudah milih, ini akan pause selama 2 detik di baris ini.
+                int result = await RPSScript.gangsuit();
+
+                // draw
+                if (result == 1) 
+                {
+                    RPSCurrentTime = RPSStartingTime;
+                }
+                // valid
+                else if (result == 2) // Gunakan else if agar lebih aman
+                {
+                    stage = 2;
+                    RPSWorld.GetComponent<Canvas>().enabled = false;
+                    drawCanvas = true;
+                    RPSCurrentTime = RPSStartingTime;
+                }
+
+                // 3. BUKA GEMBOKNYA!
+                // Setelah delay 2 detik selesai (atau langsung jika return 0), gembok dibuka
+                // supaya timer dan pengecekan ronde selanjutnya bisa berjalan lagi.
+                isGangsuitRunning = false;
+            }
         }
-
-        // 1. KUNCI GEMBOKNYA! 
-        // Ini akan mencegah frame berikutnya masuk ke blok ini lagi.
-        isGangsuitRunning = true;
-
-        // 2. TUNGGU HASIL. 
-        // Jika belum ada yang milih, ini mengembalikan 0 secara instan.
-        // Jika sudah milih, ini akan pause selama 2 detik di baris ini.
-        int result = await RPSScript.gangsuit();
-
-        // draw
-        if (result == 1) 
-        {
-            RPSCurrentTime = RPSStartingTime;
-        }
-        // valid
-        else if (result == 2) // Gunakan else if agar lebih aman
-        {
-            stage = 2;
-            RPSWorld.GetComponent<Canvas>().enabled = false;
-            drawCanvas = true;
-            RPSCurrentTime = RPSStartingTime;
-        }
-
-        // 3. BUKA GEMBOKNYA!
-        // Setelah delay 2 detik selesai (atau langsung jika return 0), gembok dibuka
-        // supaya timer dan pengecekan ronde selanjutnya bisa berjalan lagi.
-        isGangsuitRunning = false;
-    }
-}
 
         // nebak
             //gangsuit == draw -> kembali gangsuit
@@ -134,15 +138,18 @@ public class CoreLoop : MonoBehaviour
                 Debug.Log("Canvas drawed 2");
                 showCanvas(2);
                 LookGuessWorld.GetComponent<Canvas>().enabled = true;
+                guessingScript.StartAnimArrow();
                 GuessCountdownText.enabled = true;
                 GuessIntervalText.enabled = false;
                 GuessCurrentTime = GuessStartingTime;
-                GameObject[] objList = GameObject.FindGameObjectsWithTag("ToggleableGuessMenu");
-                for(int i = 0; i < objList.Length; i++)
-                {
-                    (objList[i].GetComponent<Image>()).enabled = false;
-                }
+                GUESS_UI.SetActive(false);
+                //GameObject[] objList = GameObject.FindGameObjectsWithTag("ToggleableGuessMenu");
+                //for(int i = 0; i < objList.Length; i++)
+                //{
+                //    (objList[i].GetComponent<Image>()).enabled = false;
+                //}
                 countdownSession = true;
+
             }
 
             if (countdownSession)
@@ -155,41 +162,52 @@ public class CoreLoop : MonoBehaviour
                     GuessIntervalText.enabled = true;
                     GuessCountdownText.enabled = false;
                     countdownSession = false;
-                    GameObject[] objList = GameObject.FindGameObjectsWithTag("ToggleableGuessMenu");
-                    for (int i = 0; i < objList.Length; i++)
-                    {
-                        (objList[i].GetComponent<Image>()).enabled = true;
-
-                    }
+                    GUESS_UI.SetActive(true);
+                    //GameObject[] objList = GameObject.FindGameObjectsWithTag("ToggleableGuessMenu");
+                    //for (int i = 0; i < objList.Length; i++)
+                    //{
+                    //    (objList[i].GetComponent<Image>()).enabled = true;
+                    //}
                 }
             }
             
             if(!countdownSession){
-                GuessCurrentTime -= 1 * Time.deltaTime;                
-                GuessIntervalText.text = ((Mathf.Round(GuessCurrentTime * 100)) / 100.0f).ToString();
-
-                if (GuessCurrentTime <= 0) 
+                if (!isGuessRunning)
                 {
-                    if (playerScript.winRPS)
+                    GuessCurrentTime -= 1 * Time.deltaTime;
+                    GuessIntervalText.text = ((Mathf.Round(GuessCurrentTime * 100)) / 100.0f).ToString();
+                    
+                    // T ^ (T ^ T) -> T
+                    if (GuessCurrentTime <= 0 && (playerScript.handDirection == 0 && playerScript.headDirection == 0))
                     {
-                        playerScript.handDirection = Random.Range(1, 5);
-                        Debug.Log($"Player random hand: " + playerScript.handDirection);
-                    } else
-                    {
-                        playerScript.headDirection = Random.Range(1, 5);
-                        Debug.Log($"Player random head: " + playerScript.headDirection);
+                        //isGuessRunning = !isGuessRunning;
+                        if (playerScript.winRPS)
+                        {
+                            playerScript.handDirection = Random.Range(1, 5);
+                            Debug.Log($"Player random hand: " + playerScript.handDirection);
+                        } else
+                        {
+                            playerScript.headDirection = Random.Range(1, 5);
+                            Debug.Log($"Player random head: " + playerScript.headDirection);
+                        }
                     }
+                    isGangsuitRunning = true;
+
+                    bool res = await guessingScript.guess(playerScript, rikaScript);
+                    if (res)
+                    {
+                        //Debug.Log("Continue to shooting");
+                        stage = 3;
+                        drawCanvas = true;
+                        //GuessCurrentTime = GuessStartingTime;
+                        // MATIKAN UI LOOK GUESS WORLD DI SINI
+                        LookGuessWorld.GetComponent<Canvas>().enabled = false;
+                        //await Task.Delay(2000);
+
+                    }
+                    isGangsuitRunning = false;
                 }
 
-                if (guessingScript.guess(playerScript, rikaScript))
-                {
-                    //Debug.Log("Continue to shooting");
-                    stage = 3;
-                    drawCanvas = true;
-                    //GuessCurrentTime = GuessStartingTime;
-                    // MATIKAN UI LOOK GUESS WORLD DI SINI
-                    LookGuessWorld.GetComponent<Canvas>().enabled = false;
-                }
             }
         }
 
