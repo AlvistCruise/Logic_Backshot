@@ -1,6 +1,6 @@
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
 
@@ -10,13 +10,13 @@ public class RPSScript : MonoBehaviour
     public PlayerScript playerScript;
     [SerializeField] private Animator targetAnimator;
     public Image IMGRock, IMGPaper, IMGScissors, IMGPopup, IMGRandom; 
-    //bool resultConclusded;
-    //int turnIdx
+
+    public GameObject RPS_UI;
+    public Image PlayerHandUI;
+    public Image[] PlayerHandPopUp;
 
     void Start()
     {
-        //turnIdx = 0;
-        //resultConcluded = false;
         rikaScript = GetComponent<RikaScript>();
         playerScript = GetComponent<PlayerScript>();
     }
@@ -29,11 +29,16 @@ public class RPSScript : MonoBehaviour
         if (rikaScript.RPSHandIdx == 1) targetAnimator.SetBool("isRock", true);
         if (rikaScript.RPSHandIdx == 2) targetAnimator.SetBool("isPaper", true);
         if (rikaScript.RPSHandIdx == 3) targetAnimator.SetBool("isScissors", true);
+        RPS_UI.SetActive(true);
         IMGPopup.enabled = true;
         IMGRandom.enabled = true;
 
         if (rikaScript.RPSHandIdx != 0 && playerScript.RPSHandIdx != 0)
         {
+            PlayerHandPopUp[playerScript.RPSHandIdx - 1].enabled = true;
+            PlayerHandUI.enabled = true;
+            RPS_UI.SetActive(false);
+
             IMGRandom.enabled = false;
             if (rikaScript.RPSHandIdx == 1) IMGRock.enabled = true;
             if (rikaScript.RPSHandIdx == 2) IMGPaper.enabled = true;
@@ -73,6 +78,7 @@ public class RPSScript : MonoBehaviour
         Debug.Log($"[DEBUG] Result : {result} | Player Hand : {playerHand}");
         if (result == 0) return;
 
+
         if (result == playerHand)
         {
             targetAnimator.SetBool("isDamage", true);
@@ -93,6 +99,8 @@ public class RPSScript : MonoBehaviour
 
     private void resetHand()
     {
+        PlayerHandPopUp[playerScript.RPSHandIdx - 1].enabled = false;
+        PlayerHandUI.enabled = false;
         rikaScript.RPSHandIdx = 0;
         playerScript.RPSHandIdx = 0;
         rikaScript.RPSDecided = false;
@@ -101,6 +109,8 @@ public class RPSScript : MonoBehaviour
         IMGScissors.enabled = false;
         IMGRandom.enabled = false;
         IMGPopup.enabled = false;
+        RPS_UI.SetActive(true);
+
     }
 
     private void resetAnimation()
