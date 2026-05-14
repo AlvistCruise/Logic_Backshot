@@ -177,7 +177,8 @@ public class CoreLoop : MonoBehaviour
                     GuessCurrentTime -= 1 * Time.deltaTime;
                     GuessIntervalText.text = ((Mathf.Round(GuessCurrentTime * 100)) / 100.0f).ToString();
                     
-                    // T ^ (T ^ T) -> T
+                     //T ^ (T ^ T) ->T
+
                     if (GuessCurrentTime <= 0 && (playerScript.handDirection == 0 && playerScript.headDirection == 0))
                     {
                         //isGuessRunning = !isGuessRunning;
@@ -191,12 +192,20 @@ public class CoreLoop : MonoBehaviour
                             Debug.Log($"Player random head: " + playerScript.headDirection);
                         }
                     }
-                    isGangsuitRunning = true;
+                    isGuessRunning = true;
 
-                    bool res = await guessingScript.guess(playerScript, rikaScript);
-                    if (res)
+
+                    //0 = no input | 1 = diff | 2 = draw
+                    int res = await guessingScript.guess(playerScript, rikaScript);
+                    if(res == 1)
                     {
-                        //Debug.Log("Continue to shooting");
+                        stage = 1;
+                        drawCanvas = true;
+                        LookGuessWorld.GetComponent<Canvas>().enabled = false;
+                    }
+                    if (res == 2) { 
+                    
+                        Debug.Log("Continue to shooting");
                         stage = 3;
                         drawCanvas = true;
                         //GuessCurrentTime = GuessStartingTime;
@@ -205,7 +214,7 @@ public class CoreLoop : MonoBehaviour
                         //await Task.Delay(2000);
 
                     }
-                    isGangsuitRunning = false;
+                    isGuessRunning = false;
                 }
 
             }

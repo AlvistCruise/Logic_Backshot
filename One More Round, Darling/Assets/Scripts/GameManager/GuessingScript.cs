@@ -14,7 +14,7 @@ public class GuessingScript : MonoBehaviour
 
     private bool stopAnim = true;
 
-    private int[] arrowRotation = { 0, -90, -180, 270 };
+    private int[] arrowRotation = { 0, -90, -180, -270 };
     // public Image IMGRandomArrow;
     public GameObject GUESS_UI;
     public Image PlayerGuessUi;
@@ -26,7 +26,7 @@ public class GuessingScript : MonoBehaviour
         coreLoop = GetComponent<CoreLoop>();
     }
 
-    public async Task<bool> guess(PlayerScript player, RikaScript rika)
+    public async Task<int> guess(PlayerScript player, RikaScript rika)
     {
         //ganguit != draw -> lanjut (menang = arah tangan | kalah = arah kepala
         //if (!GUESS_UI.activeSelf)
@@ -34,6 +34,7 @@ public class GuessingScript : MonoBehaviour
         //    GUESS_UI.SetActive(true);
         //    Debug.Log("Guess UI state: " + GUESS_UI.activeSelf);
         //}
+
         if (PlayerGuessUi.enabled)
         {
             PlayerGuessUi.enabled = false;
@@ -43,22 +44,27 @@ public class GuessingScript : MonoBehaviour
         {
             //shootMenu.GetComponent<Canvas>().enabled = true;
             //Debug.Log("[DEBUG] Player menang gangsuit. Player yang menentukan arah tangan!");
-            rika.decideHeadDirection();
+
+            //player decide dulu -> calculate persentase -> rika pilih
+
+            if (player.handDirection == 0) return 0;
+
+
+            rika.decideHeadDirection(player.handDirection);
             if (stopAnim)
             {
                 StopAnimAndGetArrow(rika.headDirection);
                 stopAnim = !stopAnim;
             }
-            if (player.handDirection == 0 || rika.headDirection == 0) return false;
 
             GUESS_UI.SetActive(false);
             PlayerGuessUi.enabled = true;
             PlayerGuessPopUp[player.handDirection - 1].enabled = true;
-            bool res = PlayerDecide(player, rika);
+            int res = PlayerDecide(player, rika);
             
             await Task.Delay(2000);
             resetDirection(player, rika);
-            Debug.Log("DELAY ANJHING");
+
             return res;
         }
         else if (!player.winRPS && rika.winRPS)
@@ -74,24 +80,24 @@ public class GuessingScript : MonoBehaviour
                 stopAnim = !stopAnim;
             }
 
-            if (player.headDirection == 0 || rika.handDirection == 0) return false;
+            if (player.headDirection == 0 || rika.handDirection == 0) return 0;
 
             GUESS_UI.SetActive(false);
 
             PlayerGuessUi.enabled = true;
             PlayerGuessPopUp[player.headDirection - 1].enabled = true;
-            bool res = RikaDecide(player, rika);
+            int res = RikaDecide(player, rika);
             
             await Task.Delay(2000);
             resetDirection(player, rika);
-            Debug.Log("DELAY ANJHING");
+
             return res;
 
         }
-        return false;
+        return 0;
     }
 
-    private bool PlayerDecide(PlayerScript player, RikaScript rika)
+    private int PlayerDecide(PlayerScript player, RikaScript rika)
     {
 
         //player dulu nunjuk baru si Rika gerak kepala
@@ -101,20 +107,20 @@ public class GuessingScript : MonoBehaviour
             Debug.Log("[DEBUG] Same direction! continue to shoot");
             player.attacker = true;
             rika.attacker = false;
-            return true;
+            return 2;
         } else
         {
             Debug.Log("[DEBUG] Different direction! back to gangsuit");
-            coreLoop.stage = 1;
-            coreLoop.drawCanvas = true;
-            coreLoop.LookGuessWorld.GetComponent<Canvas>().enabled = false;
+            //coreLoop.stage = 1;
+            //coreLoop.drawCanvas = true;
+            //coreLoop.LookGuessWorld.GetComponent<Canvas>().enabled = false;
             //resetDirection(player, rika);
-            return false;
+            return 1;
         }
 
     }
 
-    private bool RikaDecide(PlayerScript player, RikaScript rika)
+    private int RikaDecide(PlayerScript player, RikaScript rika)
     {
 
 
@@ -126,16 +132,13 @@ public class GuessingScript : MonoBehaviour
             rika.attacker = true;
             rika.headDecided = rika.handDecided = false;
             //resetDirection(player, rika);
-            return true;
+            return 2;
         }
         else
         {
             Debug.Log("[DEBUG] Different direction! back to gangsuit");
-            coreLoop.stage = 1;
-            coreLoop.drawCanvas = true;
-            coreLoop.LookGuessWorld.GetComponent<Canvas>().enabled = false;
             //resetDirection(player, rika);
-            return false;
+            return 1;
         }
 
     }
@@ -166,7 +169,6 @@ public class GuessingScript : MonoBehaviour
         {
             (arrowsObj[i].GetComponent<Animator>()).enabled = false;
 
-            // tranform quaternion 0,0, (nilai dari rika decide) 1 == up 0 | 2 == right -90 | 3 == down -180 | 4 == left -270
             float z = arrowRotation[idx - 1];
             (arrowsObj[i].GetComponent<RectTransform>()).localEulerAngles = new Vector3(0, 0, z);
         }
