@@ -30,7 +30,7 @@ public class HpDisplayScript : MonoBehaviour
 
     void hpDisplayUpdate() {
 
-        float hpObjGap = 0.4f;
+        float hpObjGap = 0.5f;
         //destroy all prev hp obj
         GameObject[] prevHpObj= GameObject.FindGameObjectsWithTag("HpObject");
         for(int i = 0; i < prevHpObj.Length; i++)

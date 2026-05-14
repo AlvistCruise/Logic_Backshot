@@ -13,6 +13,7 @@ public class MenuScript : MonoBehaviour
     public GameObject creditMenu;
     public GameObject tutorialMenu;
 
+    public GameObject gameMenu;
     public GameObject RPSMenu;
     public GameObject RPSWorld;
     public GameObject lookGuessMenu;
@@ -31,6 +32,7 @@ public class MenuScript : MonoBehaviour
         (RPSWorld.GetComponent<Canvas>()).enabled = false;
         (lookGuessMenu.GetComponent<Canvas>()).enabled = false;
         (shootTargetMenu.GetComponent<Canvas>()).enabled = false;
+        (gameMenu.GetComponent<Canvas>()).enabled = false;
 
         menuStack = new Stack<GameObject>();
         start = false;
@@ -74,6 +76,7 @@ public class MenuScript : MonoBehaviour
         //playerCamera.transform.position = new Vector3(0, 4.35f, -9.79f);
         //playerCamera.transform.rotation = new Quaternion(0, 0, 0, 0);
         gameCamera.enabled = true;
+        (gameMenu.GetComponent<Canvas>()).enabled = true;
         start = true;
     }
 

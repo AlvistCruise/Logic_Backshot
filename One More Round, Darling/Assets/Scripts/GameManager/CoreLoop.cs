@@ -35,12 +35,13 @@ public class CoreLoop : MonoBehaviour
     public TMP_Text GuessCountdownText;
     public TMP_Text GuessIntervalText;
 
-    public float RPSStartingTime = 10f;
+    public float RPSStartingTime = 3f;
     public float GuessStartingTime = 5f;
     public bool countdownSession;
     public bool intervalSession;
 
-
+    public float playerInterval = 2f;
+    public float rikaInterval = 1f;
 
     float RPSCurrentTime;
     float GuessCurrentTime;
@@ -89,7 +90,7 @@ public class CoreLoop : MonoBehaviour
             if (!isGangsuitRunning)
             {
                 RPSCurrentTime -= 1 * Time.deltaTime;
-                RSPTimerText.text = "Timer: " + Mathf.Round(RPSCurrentTime).ToString();
+                RSPTimerText.text = Mathf.Round(RPSCurrentTime).ToString();
 
                 if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
                 {
@@ -158,7 +159,13 @@ public class CoreLoop : MonoBehaviour
                 GuessCountdownText.text = Mathf.Round(GuessCurrentTime).ToString();
                 if (GuessCurrentTime <= 0)
                 {
-                    GuessCurrentTime = 3f;
+                    if (playerScript.winRPS)
+                    {
+                        GuessCurrentTime = playerInterval;
+                    } else if (rikaScript.winRPS)
+                    {
+                        GuessCurrentTime = rikaInterval;
+                    }
                     GuessIntervalText.enabled = true;
                     GuessCountdownText.enabled = false;
                     countdownSession = false;

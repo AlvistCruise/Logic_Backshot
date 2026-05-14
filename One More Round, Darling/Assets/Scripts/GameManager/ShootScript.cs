@@ -93,6 +93,10 @@ public class ShootScript : MonoBehaviour
             // SIAL: Peluru meledak ke diri sendiri
             Debug.Log("DOR! Nembak diri sendiri dan ADA PELURU! Health & Score berkurang.");
             currentPlayer.score -= BASE_SCORE;
+            if(currentPlayer.score < 0)
+            {
+                currentPlayer.score = 0;
+            }
             currentPlayer.hp -= 1;
             // TODO: currentPlayer.TakeDamage(); 
             // TODO: Kurangi score player

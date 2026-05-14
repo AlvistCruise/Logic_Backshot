@@ -1,7 +1,9 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
+    public TMP_Text textScore;
 
     public int hp;
     public int score;
@@ -26,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        textScore.text = "Score: " + score.ToString();
         
     }
 
