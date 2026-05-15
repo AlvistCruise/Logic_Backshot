@@ -36,7 +36,8 @@ public class CoreLoop : MonoBehaviour
     public TMP_Text GuessIntervalText;
 
     public TMP_Text winScoreText; 
-    public TMP_Text loseScoreText; 
+    public TMP_Text loseScoreText;
+    public TMP_Text loseText;
 
     public float RPSStartingTime = 3f;
     public float GuessStartingTime = 5f;
@@ -46,16 +47,21 @@ public class CoreLoop : MonoBehaviour
     public float playerInterval = 2f;
     public float rikaInterval = 1f;
 
+    [SerializeField]private int maxAutoCount = 3;
+    public int autoCount;
+   
+
     float RPSCurrentTime;
     float GuessCurrentTime;
 
     public int stage = 0;
     private bool isGangsuitRunning = false;
     private bool isGuessRunning = false;
+
+    private bool gameStarted = false;
     
     void Start()
     {
-
         RPSScript       = GetComponent<RPSScript>();
         playerScript    = GetComponent<PlayerScript>();
         rikaScript      = GetComponent<RikaScript>();
@@ -64,26 +70,38 @@ public class CoreLoop : MonoBehaviour
         hpScript        = GetComponent<HpDisplayScript>();
 
         //menuList        = new Canvas[TOTAL_MENU];
-        RPSCurrentTime = RPSStartingTime;
-        GuessCurrentTime = GuessStartingTime; //guess fisrt timer setter
-        drawCanvas = true;
-        countdownSession = intervalSession = false; //count still paused at the start of the game || Interval Start when countdown end
-        stage = 1;
+        init();
     }
 
     async Task Update()
     {
         if (!menuScript.start)return;
+        if (!gameStarted)
+        {
+            init();
+            gameStarted = !gameStarted;
+        }
+
         hpScript.updateHp();
         if(playerScript.hp <= 0)
         {
+            gameStarted = false;
             loseScoreText.text = "Total Score:  " + playerScript.score.ToString();
             menuScript.lose();
             return;
         } else if (rikaScript.hp <= 0)
         {
+            gameStarted = false;
             winScoreText.text = "Total Score:  " + playerScript.score.ToString();
             menuScript.win();
+            return;
+        }
+        if(autoCount >= maxAutoCount)
+        {
+            gameStarted = false;
+            Debug.Log("LOSE BECAUSE OF AFK");
+            winScoreText.text = "Total Score: " + playerScript.score.ToString() + "AFK";
+            menuScript.lose();
             return;
         }
 
@@ -109,8 +127,18 @@ public class CoreLoop : MonoBehaviour
                 if (RPSCurrentTime <= 0 && playerScript.RPSHandIdx == 0)
                 {
                     //TODO: RANDOM SELECT + ANIMASI GANGSUIT
+                    autoCount+=1;
+                    if(autoCount == maxAutoCount)
+                    {
+                        hideCanvas(1);
+                        return;
+                    }
                     playerScript.RPSHandIdx = Random.Range(1, 4);
                     Debug.Log($"[DEBUG] Auto select: {playerScript.RPSHandIdx}");
+                } else if (playerScript.RPSHandIdx != 0)
+                {
+                    Debug.Log("Auto reset");
+                    autoCount = 0;
                 }
 
                 // 1. KUNCI GEMBOKNYA! 
@@ -260,6 +288,16 @@ public class CoreLoop : MonoBehaviour
             // if shooting session selesai, cek hp, kalau ada yang hp nya 0, game over, kalau gak, kembali gangsuit
         }
     }
+    
+    public void init()
+    {
+        RPSCurrentTime = RPSStartingTime;
+        GuessCurrentTime = GuessStartingTime; //guess fisrt timer setter
+        drawCanvas = true;
+        countdownSession = intervalSession = false; //count still paused at the start of the game || Interval Start when countdown end
+        autoCount = 0;
+        stage = 1;
+    }
 
     public void showCanvas(int canvasIdx)
     {
@@ -267,6 +305,14 @@ public class CoreLoop : MonoBehaviour
         {
             if (i == canvasIdx) menuList[i].enabled = true;
             else menuList[i].enabled = false;
+        }
+    }
+
+    public void hideCanvas(int canvasIdx)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (i == canvasIdx) menuList[i].enabled = false;
         }
     }
     
