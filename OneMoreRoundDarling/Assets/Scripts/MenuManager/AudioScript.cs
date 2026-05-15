@@ -1,8 +1,8 @@
-using TMPro.EditorUtilities;
+// using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI; // Wajib untuk mengakses komponen Slider
 
-public class PengaturanVolume : MonoBehaviour
+public class AudioScript : MonoBehaviour
 {
     [Header("Pengaturan BGM")]
     public Slider bgmSlider;

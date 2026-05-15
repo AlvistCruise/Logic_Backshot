@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AudioScript : MonoBehaviour
+public class GunAudioScript : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip hasBullet;

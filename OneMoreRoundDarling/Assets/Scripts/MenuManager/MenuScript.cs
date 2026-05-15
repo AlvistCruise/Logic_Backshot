@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEditor;
+// using UnityEditor;
 using UnityEngine;
 using Unity.Cinemachine;
 using System.Threading.Tasks; // WAJIB TAMBAH INI UNTUK DELAY EXIT
@@ -241,10 +241,10 @@ public class MenuScript : MonoBehaviour
         // Application.Quit();
 
         // Tutup aplikasinya
-        #if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+        // #if UNITY_EDITOR
+        //     EditorApplication.isPlaying = false;
+        // #else
+        Application.Quit();
+        // #endif
     }
 }

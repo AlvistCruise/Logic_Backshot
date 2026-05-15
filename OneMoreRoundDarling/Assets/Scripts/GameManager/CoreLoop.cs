@@ -1,12 +1,11 @@
-using System.Threading;
+// using System.Threading;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor;
+// using Unity.VisualScripting;
+// using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal.Internal;
-using UnityEngine.UI;
+// using UnityEngine.Rendering;
+// using UnityEngine.Rendering.Universal.Internal;
+// using UnityEngine.UI;
 using System.Threading.Tasks;
 
 public class CoreLoop : MonoBehaviour
@@ -74,7 +73,7 @@ public class CoreLoop : MonoBehaviour
         init();
     }
 
-    async Task Update()
+    async void Update()
     {
         if (!menuScript.start)return;
         if (!gameStarted)
