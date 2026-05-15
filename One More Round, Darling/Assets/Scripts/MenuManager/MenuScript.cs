@@ -23,6 +23,7 @@ public class MenuScript : MonoBehaviour
     public GameObject mainMenu;
     public GameObject creditMenu;
     public GameObject tutorialMenu;
+    public GameObject settingMenu;
 
     public GameObject gameMenu;
     public GameObject RPSMenu;
@@ -37,7 +38,7 @@ public class MenuScript : MonoBehaviour
 
     public GameObject rikaObj;
 
-    [SerializeField] private GameObject updateMenu ;
+    [SerializeField] private GameObject updateMenu;
     [SerializeField] private GameObject curMenu;
 
     // FUNGSI BANTUAN UNTUK GANTI MUSIK
@@ -160,6 +161,15 @@ public class MenuScript : MonoBehaviour
         menuStack.Push(tutorialMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Tutorial: " + updateMenu);
+    }
+
+    public void setting()
+    {
+        if (menuStack.Peek() == settingMenu) return;
+        menuStack.Push(settingMenu);
+        updateMenu = menuStack.Peek();
+        Debug.Log("[DEBUG] Tutorial: " + updateMenu);
+
     }
     public void win()
     {
