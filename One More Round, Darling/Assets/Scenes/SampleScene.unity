@@ -6463,7 +6463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -449429.6, y: 226364.58}
+  m_AnchoredPosition: {x: -758343.44, y: 383634.28}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &863256781
@@ -9299,12 +9299,15 @@ MonoBehaviour:
   GuessIntervalText: {fileID: 989391525}
   winScoreText: {fileID: 204617815}
   loseScoreText: {fileID: 1823275201}
+  loseText: {fileID: 0}
   RPSStartingTime: 3
   GuessStartingTime: 3
   countdownSession: 0
   intervalSession: 0
   playerInterval: 2
   rikaInterval: 1
+  maxAutoCount: 3
+  autoCount: 0
   stage: 0
 --- !u!114 &1128406707
 MonoBehaviour:

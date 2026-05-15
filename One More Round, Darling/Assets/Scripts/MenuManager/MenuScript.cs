@@ -78,6 +78,7 @@ public class MenuScript : MonoBehaviour
     public void startGame()
     {
         initGame();
+        
         gameCamera.enabled = true;
         (gameMenu.GetComponent<Canvas>()).enabled = true;
         (rikaObj.GetComponent<Animator>()).enabled = true;
