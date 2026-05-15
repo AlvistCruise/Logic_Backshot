@@ -47,7 +47,7 @@ public class CoreLoop : MonoBehaviour
     public float playerInterval = 2f;
     public float rikaInterval = 1f;
 
-    [SerializeField]private int maxAutoCount = 3;
+    [SerializeField]private int maxAutoCount = 5;
     public int autoCount;
    
 
@@ -80,6 +80,8 @@ public class CoreLoop : MonoBehaviour
         {
             init();
             gameStarted = !gameStarted;
+
+            hpScript.showText();
         }
 
         hpScript.updateHp();
@@ -87,12 +89,17 @@ public class CoreLoop : MonoBehaviour
         {
             gameStarted = false;
             loseScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            hpScript.hideText();
+            hpScript.destroyAll();
             menuScript.lose();
             return;
-        } else if (rikaScript.hp <= 0)
+        } 
+        if (rikaScript.hp <= 0)
         {
             gameStarted = false;
             winScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            hpScript.hideText();
+            hpScript.destroyAll();
             menuScript.win();
             return;
         }
@@ -100,12 +107,13 @@ public class CoreLoop : MonoBehaviour
         {
             gameStarted = false;
             Debug.Log("LOSE BECAUSE OF AFK");
-            winScoreText.text = "Total Score: " + playerScript.score.ToString() + "AFK";
+            loseScoreText.text = "BITCH NO SCORE FOR U";
+            hpScript.hideText();
+            hpScript.destroyAll();
             menuScript.lose();
             return;
         }
 
-        //TODO: win lose condition 
 
         //gangsuit
         if(stage == 1)
