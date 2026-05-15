@@ -26,6 +26,11 @@ public class RikaScript : MonoBehaviour
 
     GuessingScript guessingScript;
 
+    [Header("Suara Rika")]
+    public AudioSource speakerRika; // Masukkan komponen AudioSource milik Rika di Inspector
+    public AudioClip[] suaraDamage; // Array untuk menyimpan lebih dari 1 variasi suara kesakitan
+    public AudioClip suaraGantiStage; // Suara saat Rika makin marah/ganti fase
+
     public void Start()
     {
         hp = 3;
@@ -99,6 +104,26 @@ public class RikaScript : MonoBehaviour
             Debug.Log($"[DEBUG] Rika head selected idx: {headDirection}");
             headDecided = !headDecided;
             //guessingScript.StopAnimAndGetArrow();
+        }
+    }
+
+    // Fungsi untuk memutar suara acak saat kena damage
+    public void MainkanSuaraDamage()
+    {
+        if (speakerRika != null && suaraDamage.Length > 0)
+        {
+            // Pilih satu suara secara acak dari daftar
+            int randomIndex = Random.Range(0, suaraDamage.Length);
+            speakerRika.PlayOneShot(suaraDamage[randomIndex]);
+        }
+    }
+
+    // Fungsi untuk memutar suara saat ganti stage
+    public void MainkanSuaraMarah()
+    {
+        if (speakerRika != null && suaraGantiStage != null)
+        {
+            speakerRika.PlayOneShot(suaraGantiStage);
         }
     }
 }

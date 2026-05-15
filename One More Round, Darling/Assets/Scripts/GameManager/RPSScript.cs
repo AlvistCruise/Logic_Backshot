@@ -84,6 +84,7 @@ public class RPSScript : MonoBehaviour
             targetAnimator.SetBool("isDamage", true);
             Invoke("DelayResetAnim", 0.1f);
             // targetAnimator.SetBool("isDamage", false);
+            rikaScript.MainkanSuaraDamage();
             Debug.Log("PLAYER WIN RPS");
             playerScript.winRPS = true;
             rikaScript.winRPS = false;

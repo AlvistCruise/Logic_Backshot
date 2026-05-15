@@ -206,24 +206,38 @@ public class ShootScript : MonoBehaviour
             currentRika.hp -= 1;
             currentPlayer.score += BASE_SCORE;
 
+            // --- TAMBAHKAN KODE SUARA DI SINI ---
+            // currentRika.MainkanSuaraDamage(); // Rika berteriak kesakitan
+
             // Logika pergantian stage HP Rika
             if (currentRika.hp == 2)
             {
                 targetAnimator.SetBool("isDamage", true);
                 targetAnimator.SetBool("isStage1", false);
                 targetAnimator.SetBool("isStage2", true);
+
+                // --- SUARA GANTI STAGE ---
+                currentRika.MainkanSuaraMarah();
                 Invoke("DelayResetAnim", 0.1f);
             } else if (currentRika.hp == 1)
             {
                 targetAnimator.SetBool("isDamage", true);
                 targetAnimator.SetBool("isStage2", false);
                 targetAnimator.SetBool("isStage3", true);
+
+                // --- SUARA GANTI STAGE ---
+                currentRika.MainkanSuaraMarah();
+
                 Invoke("DelayResetAnim", 0.1f);
             }
              else if (currentRika.hp <= 0)
             {
                 targetAnimator.SetBool("isDamage", true);
                 targetAnimator.SetBool("isStage3", false);
+
+                // --- SUARA GANTI STAGE ---
+                currentRika.MainkanSuaraMarah(); 
+
                 Invoke("DelayResetAnim", 0.1f);
             }
             // TODO: currentRika.TakeDamage(); 

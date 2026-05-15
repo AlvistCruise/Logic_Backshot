@@ -2,11 +2,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Unity.Cinemachine;
+using System.Threading.Tasks; // WAJIB TAMBAH INI UNTUK DELAY EXIT
 
 public class MenuScript : MonoBehaviour
 {
     RPSScript RPSScript; // added reference to RPSScript to control animation when game ends
     public GameObject gameManager;
+
+    [Header("Pengaturan BGM (Background Music)")]
+    public AudioSource bgmAudioSource; // Corong speaker utama
+    public AudioClip mainMenuBGM;
+    public AudioClip inGameBGM;
+    public AudioClip winBGM;
+    public AudioClip loseBGM;
 
     public bool start;
     public Camera playerCamera;
@@ -31,6 +39,20 @@ public class MenuScript : MonoBehaviour
 
     [SerializeField] private GameObject updateMenu ;
     [SerializeField] private GameObject curMenu;
+
+    // FUNGSI BANTUAN UNTUK GANTI MUSIK
+    private void PlayBGM(AudioClip newClip)
+    {
+        // Cegah error kalau audio source/clip kosong
+        if (bgmAudioSource == null || newClip == null) return; 
+        
+        // Jangan putar ulang kalau lagunya sudah sama (biar gak putus-putus)
+        if (bgmAudioSource.clip == newClip) return; 
+
+        bgmAudioSource.Stop();
+        bgmAudioSource.clip = newClip;
+        bgmAudioSource.Play();
+    }
 
     void Start()
     {
@@ -60,6 +82,9 @@ public class MenuScript : MonoBehaviour
         curScreen.enabled = true;
 
         gameCamera.enabled = false;
+
+        // PUTAR MUSIK MAIN MENU SAAT GAME BARU DIBUKA
+        PlayBGM(mainMenuBGM);
 
     }
 
@@ -102,6 +127,9 @@ public class MenuScript : MonoBehaviour
         (gameMenu.GetComponent<Canvas>()).enabled = true;
         (rikaObj.GetComponent<Animator>()).enabled = true;
         start = true;
+
+        // GANTI MUSIK JADI IN-GAME SAAT MULAI MAIN
+        PlayBGM(inGameBGM);
     }
 
     public void back()
@@ -110,6 +138,12 @@ public class MenuScript : MonoBehaviour
         menuStack.Pop();
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Back: " + updateMenu);
+
+        // JIKA KEMBALI KE MAIN MENU (MISAL DARI WIN/LOSE), PUTAR LAGI MUSIK MAIN MENU
+        if (updateMenu == mainMenu)
+        {
+            PlayBGM(mainMenuBGM);
+        }
     }
 
     public void credit()
@@ -137,6 +171,9 @@ public class MenuScript : MonoBehaviour
         menuStack.Push(winMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Win: " + winMenu);
+
+        // GANTI MUSIK JADI MENANG
+        PlayBGM(winBGM);
     }
 
     public void lose()
@@ -149,6 +186,9 @@ public class MenuScript : MonoBehaviour
         menuStack.Push(loseMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Lose: " + loseMenu);
+
+        // GANTI MUSIK JADI KALAH
+        PlayBGM(loseBGM);
     }
 
     public void initGame()
@@ -159,11 +199,26 @@ public class MenuScript : MonoBehaviour
         rika.Start();
     }
 
-    public void exit()
+    // UBAH JADI ASYNC UNTUK PENGANGKATAN RIKA KE SURGA
+    public async void exit()
     {
-        //TODO: Rika mental saat exit, delay selama 2 detik sebelum quit untuk menyaksikan penngangkatan Rika ke surga :)
+        // TODO: Rika mental saat exit, delay selama 2 detik sebelum quit untuk menyaksikan penngangkatan Rika ke surga :)
+        Debug.Log("Mengirim Rika ke surga...");
+        
+        // TODO: Nyalakan animasi Rika mental di sini
+        // Misalnya: RPSScript.targetAnimator.SetTrigger("isMental");
 
-        EditorApplication.isPaused = true;
-        Application.Quit();
+        // Tunggu 2 detik (2000 milidetik)
+        await Task.Delay(100);
+
+        // EditorApplication.isPaused = true;
+        // Application.Quit();
+
+        // Tutup aplikasinya
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
