@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 
 public class MenuScript : MonoBehaviour
 {
+    RPSScript RPSScript; // added reference to RPSScript to control animation when game ends
     public GameObject gameManager;
 
     public bool start;
@@ -33,6 +34,11 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
+        // 1. WAJIB DITAMBAHKAN: Ambil komponen RPSScript dari gameManager
+        if (gameManager != null)
+        {
+            RPSScript = gameManager.GetComponent<RPSScript>();
+        }
         (creditMenu.GetComponent<Canvas>()).enabled = false;
         (tutorialMenu.GetComponent<Canvas>()).enabled = false;
         (RPSMenu.GetComponent<Canvas>()).enabled = false;
@@ -79,6 +85,19 @@ public class MenuScript : MonoBehaviour
     {
         initGame();
         
+        // 2. HAPUS SEMUA COMMENT DI BAWAH INI AGAR ANIMASI BENAR-BENAR RESET
+        if (RPSScript != null && RPSScript.targetAnimator != null)
+        {
+            RPSScript.targetAnimator.SetBool("isFinish", false); 
+            RPSScript.targetAnimator.SetBool("isStage1", true); 
+            RPSScript.targetAnimator.SetBool("isStage2", false);
+            RPSScript.targetAnimator.SetBool("isStage3", false);
+            RPSScript.targetAnimator.SetBool("isRock", false);
+            RPSScript.targetAnimator.SetBool("isPaper", false);
+            RPSScript.targetAnimator.SetBool("isScissors", false);
+            RPSScript.targetAnimator.SetBool("isDamage", false);
+        }
+        
         gameCamera.enabled = true;
         (gameMenu.GetComponent<Canvas>()).enabled = true;
         (rikaObj.GetComponent<Animator>()).enabled = true;
@@ -114,7 +133,7 @@ public class MenuScript : MonoBehaviour
         start = false;
         gameCamera.enabled = false;
         (gameMenu.GetComponent<Canvas>()).enabled = false;
-        (rikaObj.GetComponent<Animator>()).enabled = false;
+        // (rikaObj.GetComponent<Animator>()).enabled = false;
         menuStack.Push(winMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Win: " + winMenu);
@@ -126,7 +145,7 @@ public class MenuScript : MonoBehaviour
         start = false;
         gameCamera.enabled = false;
         (gameMenu.GetComponent<Canvas>()).enabled = false;
-        (rikaObj.GetComponent<Animator>()).enabled = false;
+        // (rikaObj.GetComponent<Animator>()).enabled = false;
         menuStack.Push(loseMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Lose: " + loseMenu);

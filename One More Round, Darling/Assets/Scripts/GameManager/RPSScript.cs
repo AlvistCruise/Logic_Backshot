@@ -8,7 +8,7 @@ public class RPSScript : MonoBehaviour
 {
     public RikaScript rikaScript;
     public PlayerScript playerScript;
-    [SerializeField] private Animator targetAnimator;
+    [SerializeField] public Animator targetAnimator;
     public Image IMGRock, IMGPaper, IMGScissors, IMGPopup, IMGRandom; 
 
     public GameObject RPS_UI;

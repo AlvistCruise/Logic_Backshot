@@ -87,12 +87,14 @@ public class CoreLoop : MonoBehaviour
         {
             gameStarted = false;
             loseScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            RPSScript.targetAnimator.SetBool("isFinish", true);
             menuScript.lose();
             return;
         } else if (rikaScript.hp <= 0)
         {
             gameStarted = false;
             winScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            RPSScript.targetAnimator.SetBool("isFinish", true);
             menuScript.win();
             return;
         }
@@ -100,6 +102,7 @@ public class CoreLoop : MonoBehaviour
         {
             gameStarted = false;
             Debug.Log("LOSE BECAUSE OF AFK");
+            RPSScript.targetAnimator.SetBool("isFinish", true);
             winScoreText.text = "Total Score: " + playerScript.score.ToString() + "AFK";
             menuScript.lose();
             return;
