@@ -17,7 +17,7 @@ public class PengaturanVolume : MonoBehaviour
         // 1. Sinkronkan posisi Slider BGM dengan volume awal saat game dimulai
         if (bgmSource != null && bgmSlider != null)
         {
-            bgmSlider.value = bgmSource.volume = 0.5f;
+            bgmSlider.value = bgmSource.volume = 0.2f;
 
             // Menyambungkan Slider BGM ke fungsi pengubah volume
             bgmSlider.onValueChanged.AddListener(UbahVolumeBGM);
@@ -26,7 +26,7 @@ public class PengaturanVolume : MonoBehaviour
         // 2. Sinkronkan posisi Slider SFX dengan volume awal (ambil patokan dari SFX pertama)
         if (sfxSources.Length > 0 && sfxSlider != null)
         { 
-            sfxSlider.value = sfxSources[0].volume = 0.5f;
+            sfxSlider.value = sfxSources[0].volume = 0.7f;
 
             // Menyambungkan Slider SFX ke fungsi pengubah volume
             sfxSlider.onValueChanged.AddListener(UbahVolumeSFX);

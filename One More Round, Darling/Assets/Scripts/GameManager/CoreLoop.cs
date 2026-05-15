@@ -37,6 +37,7 @@ public class CoreLoop : MonoBehaviour
 
     public TMP_Text winScoreText; 
     public TMP_Text loseScoreText;
+    public TMP_Text AfkScoreText;
     public TMP_Text loseText;
 
     public float RPSStartingTime = 3f;
@@ -111,11 +112,13 @@ public class CoreLoop : MonoBehaviour
             gameStarted = false;
             Debug.Log("LOSE BECAUSE OF AFK");
             RPSScript.targetAnimator.SetBool("isFinish", true);
-            winScoreText.text = "Total Score: " + playerScript.score.ToString() + "AFK";
-            loseScoreText.text = "BITCH NO SCORE FOR U";
+            // winScoreText.text = "Total Score: " + playerScript.score.ToString() + "AFK";
+            // loseScoreText.text = "Total Score: " + "AFK";
+            AfkScoreText.text = "AFK Score: " + "AFK";
             hpScript.hideText();
             hpScript.destroyAll();
-            menuScript.lose();
+            menuScript.Afk();
+            RPSWorld.GetComponent<Canvas>().enabled = false;
             return;
         }
 

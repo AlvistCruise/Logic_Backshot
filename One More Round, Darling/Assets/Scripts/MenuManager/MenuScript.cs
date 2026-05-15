@@ -33,6 +33,7 @@ public class MenuScript : MonoBehaviour
     //public GameObject winLoseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject afkMenu;
 
     public Stack<GameObject> menuStack;
 
@@ -71,7 +72,7 @@ public class MenuScript : MonoBehaviour
         (gameMenu.GetComponent<Canvas>()).enabled = false;
         (winMenu.GetComponent<Canvas>()).enabled = false;
         (loseMenu.GetComponent<Canvas>()).enabled = false;
-
+        (afkMenu.GetComponent<Canvas>()).enabled = false;
         menuStack = new Stack<GameObject>();
         start = false;
 
@@ -196,6 +197,21 @@ public class MenuScript : MonoBehaviour
         menuStack.Push(loseMenu);
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Lose: " + loseMenu);
+
+        // GANTI MUSIK JADI KALAH
+        PlayBGM(loseBGM);
+    }
+
+    public void Afk()
+    {
+        if (menuStack.Peek() == afkMenu) return;
+        start = false;
+        gameCamera.enabled = false;
+        (gameMenu.GetComponent<Canvas>()).enabled = false;
+        // (rikaObj.GetComponent<Animator>()).enabled = false;
+        menuStack.Push(afkMenu);
+        updateMenu = menuStack.Peek();
+        Debug.Log("[DEBUG] AFK: " + afkMenu);
 
         // GANTI MUSIK JADI KALAH
         PlayBGM(loseBGM);
