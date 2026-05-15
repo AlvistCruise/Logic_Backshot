@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class HpDisplayScript : MonoBehaviour
@@ -11,6 +12,9 @@ public class HpDisplayScript : MonoBehaviour
 
     public GameObject hpObj;
 
+    public TMP_Text playerHpText;
+    public TMP_Text rikaHpText;
+
     private int prevRikaHp = 0;
     private int prevPlayerHp = 0;
 
@@ -18,8 +22,22 @@ public class HpDisplayScript : MonoBehaviour
     {
         player = GetComponent<PlayerScript>();
         rika = GetComponent<RikaScript>();
+        hideText();
     }
     // Update is called once per frame
+
+    public void showText()
+    {
+        playerHpText.enabled = true;
+        rikaHpText.enabled = true;
+    }
+
+    public void hideText() 
+    { 
+        playerHpText.enabled = false;
+        rikaHpText.enabled = false;
+    }
+
     public void updateHp()
     {
         if(prevPlayerHp != player.hp || prevRikaHp != rika.hp)
@@ -31,13 +49,7 @@ public class HpDisplayScript : MonoBehaviour
     void hpDisplayUpdate() {
 
         float hpObjGap = 0.5f;
-        //destroy all prev hp obj
-        GameObject[] prevHpObj= GameObject.FindGameObjectsWithTag("HpObject");
-        for(int i = 0; i < prevHpObj.Length; i++)
-        {
-            Destroy(prevHpObj[i]);
-        }
-
+        destroyAll();
 
         for(int i = 0; i < player.hp; i++)
         {
@@ -55,5 +67,14 @@ public class HpDisplayScript : MonoBehaviour
 
         prevPlayerHp = player.hp;
         prevRikaHp = rika.hp;
+    }
+
+    public void destroyAll()
+    {
+        GameObject[] prevHpObj= GameObject.FindGameObjectsWithTag("HpObject");
+        for(int i = 0; i < prevHpObj.Length; i++)
+        {
+            Destroy(prevHpObj[i]);
+        }
     }
 }

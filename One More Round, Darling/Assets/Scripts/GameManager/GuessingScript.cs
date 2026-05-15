@@ -1,5 +1,4 @@
-using TMPro.EditorUtilities;
-using UnityEditor.ShaderGraph.Internal;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
@@ -20,6 +19,7 @@ public class GuessingScript : MonoBehaviour
     public Image PlayerGuessUi;
     public Image[] PlayerGuessPopUp;
 
+    public TMP_Text guessIndicatorText;
 
     void Start()
     {
@@ -47,9 +47,13 @@ public class GuessingScript : MonoBehaviour
 
             //player decide dulu -> calculate persentase -> rika pilih
 
+            guessIndicatorText.enabled = true;
+            guessIndicatorText.text = "YOU'RE POINTING";
+
             if (player.handDirection == 0) return 0;
 
 
+            guessIndicatorText.enabled = false;
             rika.decideHeadDirection(player.handDirection);
             if (stopAnim)
             {
@@ -72,6 +76,8 @@ public class GuessingScript : MonoBehaviour
             //Debug.Log("[DEBUG] Rika menang gangsuit. Rika yang menentukan arah tangan!");
             //shootMenu.GetComponent<Canvas>().enabled = false;
 
+            guessIndicatorText.enabled = true;
+            guessIndicatorText.text = "YOU'RE GUESSING";
             rika.decideHandDirection();
 
             if (stopAnim)
@@ -81,6 +87,7 @@ public class GuessingScript : MonoBehaviour
             }
 
             if (player.headDirection == 0 || rika.handDirection == 0) return 0;
+            guessIndicatorText.enabled = false;
 
             GUESS_UI.SetActive(false);
 

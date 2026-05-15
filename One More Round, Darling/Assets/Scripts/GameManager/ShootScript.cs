@@ -16,7 +16,7 @@ public class ShootScript : MonoBehaviour
     [SerializeField] private Animator gunAnimator;
 
     // Variabel state untuk sesi tembak
-    private int selfShootCount = 0;
+    [SerializeField]private int selfShootCount = 0;
     private int currentScoreMultiplier = 1;
 
     private bool isShootingActionRunning = false;
@@ -102,13 +102,18 @@ public class ShootScript : MonoBehaviour
     public async void ShootSelf()
     {
 
-        if (isShootingActionRunning || selfShootCount >= 2) return;
+        if (isShootingActionRunning || selfShootCount >= 2)
+        {
+            return;
+        }
         isShootingActionRunning = true;
 
         // 1. SEMBUNYIKAN UI SAAT ANIMASI BERJALAN
         shootMenu.GetComponent<Canvas>().enabled = false;
 
         bool hasBullet = Random.value > 0.5f; 
+        
+        //hasBullet = false; 
 
         // Catatan: Pastikan kamu punya animasi "GunPlayerToPlayer" jika player nembak diri sendiri
         // Untuk sekarang kita asumsikan pakai animasi "Shoot" yang sama
@@ -128,7 +133,6 @@ public class ShootScript : MonoBehaviour
         //    return;
         //}
 
-        // bool hasBullet = Random.value > 0.5f; 
 
         if (hasBullet) 
         {
@@ -165,6 +169,13 @@ public class ShootScript : MonoBehaviour
 
             // Buka kunci lagi karena sesi belum berakhir (player masih bisa nembak)
             isShootingActionRunning = false;
+
+            if (selfShootCount >= 2)
+            {
+                //ika sudah 2x hoki nembak diri sendiri, paksa player untuk tembak Rika
+                //Debug.Log("Batas nembak diri sendiri habis (Maks 2x)! Sekarang wajib tembak Rika.");
+                EndShootSession(); // Giliran hangus
+            }
         }
     }
 
