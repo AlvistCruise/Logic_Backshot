@@ -26,7 +26,7 @@ public class RikaScript : MonoBehaviour
 
     GuessingScript guessingScript;
 
-    void Start()
+    public void Start()
     {
         hp = 3;
 

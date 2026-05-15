@@ -113,18 +113,20 @@ public class ShootScript : MonoBehaviour
         // Catatan: Pastikan kamu punya animasi "GunPlayerToPlayer" jika player nembak diri sendiri
         // Untuk sekarang kita asumsikan pakai animasi "Shoot" yang sama
         // 2. MAIN KAN ANIMASI: Player ambil pistol & nembak
-        gunAnimator.SetBool("PlayerWin", true); 
+
+        gunAnimator.SetBool("RikaWin", true); //nembak dari Rika
         gunAnimator.SetBool("Shoot", hasBullet);
 
         // 3. TUNGGU ANIMASI SELESAI
         await Task.Delay(4600);
 
-        // if (selfShootCount >= 2)
-        // {
-        //     // Jika sudah 2x hoki nembak diri sendiri, paksa player untuk tembak Rika
-        //     Debug.Log("Batas nembak diri sendiri habis (Maks 2x)! Sekarang wajib tembak Rika.");
-        //     return; 
-        // }
+        //if (selfShootCount >= 2)
+        //{
+        //    // Jika sudah 2x hoki nembak diri sendiri, paksa player untuk tembak Rika
+        //   //Debug.Log("Batas nembak diri sendiri habis (Maks 2x)! Sekarang wajib tembak Rika.");
+        //    EndShootSession(); // Giliran hangus
+        //    return;
+        //}
 
         // bool hasBullet = Random.value > 0.5f; 
 
@@ -132,7 +134,7 @@ public class ShootScript : MonoBehaviour
         {
             // SIAL: Peluru meledak ke diri sendiri
             Debug.Log("DOR! Nembak diri sendiri dan ADA PELURU! Health & Score berkurang.");
-            currentPlayer.score -= BASE_SCORE;
+            currentPlayer.score -= BASE_SCORE / 2;
             if(currentPlayer.score < 0)
             {
                 currentPlayer.score = 0;
@@ -148,7 +150,7 @@ public class ShootScript : MonoBehaviour
             // HOKI: Peluru kosong
             selfShootCount++;
 
-            currentPlayer.score += BASE_SCORE * currentScoreMultiplier;
+            currentPlayer.score += (BASE_SCORE * 2) * currentScoreMultiplier;
 
             currentScoreMultiplier *= 2; 
 
@@ -156,7 +158,7 @@ public class ShootScript : MonoBehaviour
             // Sesi belum berakhir. Player bisa tekan tombol UI lagi (ShootSelf atau ShootRika).
 
             // Reset state senjata kembali ke meja (opsional, tergantung loop animasimu)
-            gunAnimator.SetBool("PlayerWin", false);
+            gunAnimator.SetBool("RikaWin", false); //reset Rika animation
             
             // MUNCULKAN UI LAGI karena player dapat giliran lagi!
             shootMenu.GetComponent<Canvas>().enabled = true;
@@ -191,6 +193,7 @@ public class ShootScript : MonoBehaviour
             // KENA RIKA
             Debug.Log($"DOR! Nembak Rika dan ADA PELURU! Rika -1 HP. Player dapat score (Multiplier x{currentScoreMultiplier}).");
             currentRika.hp -= 1;
+            currentPlayer.score += BASE_SCORE;
 
             // Logika pergantian stage HP Rika
             if (currentRika.hp == 2)
@@ -214,6 +217,7 @@ public class ShootScript : MonoBehaviour
             }
             // TODO: currentRika.TakeDamage(); 
             // TODO: Tambah Score * currentScoreMultiplier
+
         }
         else
         {

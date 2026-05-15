@@ -5,6 +5,8 @@ using Unity.Cinemachine;
 
 public class MenuScript : MonoBehaviour
 {
+    public GameObject gameManager;
+
     public bool start;
     public Camera playerCamera;
     public CinemachineCamera gameCamera;
@@ -18,8 +20,13 @@ public class MenuScript : MonoBehaviour
     public GameObject RPSWorld;
     public GameObject lookGuessMenu;
     public GameObject shootTargetMenu;
+    //public GameObject winLoseMenu;
+    public GameObject winMenu;
+    public GameObject loseMenu;
 
     public Stack<GameObject> menuStack;
+
+    public GameObject rikaObj;
 
     [SerializeField] private GameObject updateMenu ;
     [SerializeField] private GameObject curMenu;
@@ -33,6 +40,8 @@ public class MenuScript : MonoBehaviour
         (lookGuessMenu.GetComponent<Canvas>()).enabled = false;
         (shootTargetMenu.GetComponent<Canvas>()).enabled = false;
         (gameMenu.GetComponent<Canvas>()).enabled = false;
+        (winMenu.GetComponent<Canvas>()).enabled = false;
+        (loseMenu.GetComponent<Canvas>()).enabled = false;
 
         menuStack = new Stack<GameObject>();
         start = false;
@@ -49,11 +58,7 @@ public class MenuScript : MonoBehaviour
     }
 
     void Update()
-    {
-        if (Input.GetKeyDown("d"))
-        {
-            debugStack();
-        }
+    { 
         if(updateMenu != curMenu)
         {
             Debug.Log("[DEBUG} Move Menu: ");
@@ -72,11 +77,10 @@ public class MenuScript : MonoBehaviour
 
     public void startGame()
     {
-        //awal position : X-0.72 Y4.35 Z-11.2 | Rotation: X0 Y27.359 
-        //playerCamera.transform.position = new Vector3(0, 4.35f, -9.79f);
-        //playerCamera.transform.rotation = new Quaternion(0, 0, 0, 0);
+        initGame();
         gameCamera.enabled = true;
         (gameMenu.GetComponent<Canvas>()).enabled = true;
+        (rikaObj.GetComponent<Animator>()).enabled = true;
         start = true;
     }
 
@@ -103,6 +107,37 @@ public class MenuScript : MonoBehaviour
         updateMenu = menuStack.Peek();
         Debug.Log("[DEBUG] Tutorial: " + updateMenu);
     }
+    public void win()
+    {
+        if (menuStack.Peek() == winMenu) return;
+        start = false;
+        gameCamera.enabled = false;
+        (gameMenu.GetComponent<Canvas>()).enabled = false;
+        (rikaObj.GetComponent<Animator>()).enabled = false;
+        menuStack.Push(winMenu);
+        updateMenu = menuStack.Peek();
+        Debug.Log("[DEBUG] Win: " + winMenu);
+    }
+
+    public void lose()
+    {
+        if (menuStack.Peek() == loseMenu) return;
+        start = false;
+        gameCamera.enabled = false;
+        (gameMenu.GetComponent<Canvas>()).enabled = false;
+        (rikaObj.GetComponent<Animator>()).enabled = false;
+        menuStack.Push(loseMenu);
+        updateMenu = menuStack.Peek();
+        Debug.Log("[DEBUG] Lose: " + loseMenu);
+    }
+
+    public void initGame()
+    {
+        PlayerScript player = gameManager.GetComponent<PlayerScript>();
+        RikaScript rika = gameManager.GetComponent<RikaScript>();
+        player.Start();
+        rika.Start();
+    }
 
     public void exit()
     {
@@ -111,11 +146,4 @@ public class MenuScript : MonoBehaviour
         EditorApplication.isPaused = true;
         Application.Quit();
     }
-
-    private void debugStack()
-    {
-
-    }
-
-
 }

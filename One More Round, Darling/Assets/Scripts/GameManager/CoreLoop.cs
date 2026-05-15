@@ -35,6 +35,9 @@ public class CoreLoop : MonoBehaviour
     public TMP_Text GuessCountdownText;
     public TMP_Text GuessIntervalText;
 
+    public TMP_Text winScoreText; 
+    public TMP_Text loseScoreText; 
+
     public float RPSStartingTime = 3f;
     public float GuessStartingTime = 5f;
     public bool countdownSession;
@@ -72,6 +75,17 @@ public class CoreLoop : MonoBehaviour
     {
         if (!menuScript.start)return;
         hpScript.updateHp();
+        if(playerScript.hp <= 0)
+        {
+            loseScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            menuScript.lose();
+            return;
+        } else if (rikaScript.hp <= 0)
+        {
+            winScoreText.text = "Total Score:  " + playerScript.score.ToString();
+            menuScript.win();
+            return;
+        }
 
         //TODO: win lose condition 
 

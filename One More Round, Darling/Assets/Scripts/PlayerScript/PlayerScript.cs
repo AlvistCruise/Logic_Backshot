@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour
     public bool attacker;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         RPSHandIdx = handDirection = headDirection = 0;
         score = 0;
