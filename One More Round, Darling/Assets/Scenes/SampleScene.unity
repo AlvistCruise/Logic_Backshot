@@ -4136,7 +4136,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439573059}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -6500,7 +6500,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 9.0050955, w: 0}
+  m_margin: {x: 0, y: 0, z: 12.956719, w: 0.8319198}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -7610,7 +7610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0004748525, y: -0.0004299476}
+  m_AnchoredPosition: {x: 4364.8213, y: -7603.947}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &863256781
@@ -8628,8 +8628,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 377600072}
   m_HandleRect: {fileID: 377600071}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999926
+  m_Value: 0
+  m_Size: 0.9333813
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16172,7 +16172,7 @@ MonoBehaviour:
   mainMenu: {fileID: 1326650905}
   creditMenu: {fileID: 439573059}
   tutorialMenu: {fileID: 449086477}
-  settingMenu: {fileID: 0}
+  settingMenu: {fileID: 2061984573}
   gameMenu: {fileID: 1073156640}
   RPSMenu: {fileID: 612487529}
   RPSWorld: {fileID: 1261737341}
@@ -16854,7 +16854,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 9.0050955, w: 0}
+  m_margin: {x: 0, y: 0, z: 12.852731, w: 1.0399009}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -17190,7 +17190,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061984573}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
