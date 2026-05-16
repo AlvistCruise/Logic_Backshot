@@ -9684,7 +9684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2418.398, y: -4684.333}
+  m_AnchoredPosition: {x: 20418.91, y: -31685.154}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &863256781
@@ -12103,7 +12103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hint: Make sure not afk over 5 times at suits round okay?'
+  m_text: 'Hint: Make sure not afk over 5 times at suits phase okay?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
   m_sharedMaterial: {fileID: 2158547232788924468, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
@@ -18418,54 +18418,54 @@ MonoBehaviour:
     GAME DESIGNER
 
     >
-    Ryo
+    Serafino Kyrios Gunawan
 
 
     PROGRAMMERS
 
     > Alvist Cruise
 
-    > Darren Jonash
+    > Darren
+    Jonash
 
-    > Kristoforus
-    Ray Kidarsa
+    > Kristoforus Ray Kidarsa
 
 
     2D ARTIST (Rika, UI, Arts)
 
-    > Ryo
+    >
+    Serafino Kyrios Gunawan
 
 
-    3D ARTIST (Nerf
-    Gun, Table, Tea Glass)
+    3D ARTIST (Nerf Gun, Table, Tea Glass)
 
-    > Andrew Mardjohan
+    > Andrew
+    Mardjohan
 
 
     ANIMATOR (Nerf Gun & Rika)
 
-    >
-    Alvist Cruise
+    > Alvist Cruise
 
 
-    AUDIO & EXTERNAL ASSETS
+    AUDIO &
+    EXTERNAL ASSETS
 
     > UI & Button SFX Lolurio (lolurio.itch.io)
 
 
+    > Nerf
+    Gun SFX F8 Studios (f8studios.itch.io)
+
+
+    > Background Music Yukizakura (music.yukizakura.net)
+
+
     >
-    Nerf Gun SFX F8 Studios (f8studios.itch.io)
+    Rika''s Voice Lines Soundeffect-lab.info
 
 
-    > Background Music Yukizakura
-    (music.yukizakura.net)
-
-
-    > Rika''s Voice Lines Soundeffect-lab.info
-
-
-    THANK
-    YOU FOR PLAYING!'
+    THANK YOU FOR PLAYING!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
   m_sharedMaterial: {fileID: 2158547232788924468, guid: 1193909a5239d3b4b9bb5e81236dbc7c, type: 2}
