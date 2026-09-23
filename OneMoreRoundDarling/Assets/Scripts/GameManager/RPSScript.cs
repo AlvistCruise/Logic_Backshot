@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public class RPSScript : MonoBehaviour
 {
+    [SerializeField] private const int BASE_SCORE = 50;
     public RikaScript rikaScript;
     public PlayerScript playerScript;
     [SerializeField] public Animator targetAnimator;
@@ -85,6 +86,7 @@ public class RPSScript : MonoBehaviour
             Invoke("DelayResetAnim", 0.1f);
             // targetAnimator.SetBool("isDamage", false);
             rikaScript.MainkanSuaraDamage();
+            playerScript.score += BASE_SCORE;
             Debug.Log("PLAYER WIN RPS");
             playerScript.winRPS = true;
             rikaScript.winRPS = false;

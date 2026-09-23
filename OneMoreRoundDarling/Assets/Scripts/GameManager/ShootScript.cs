@@ -74,7 +74,7 @@ public class ShootScript : MonoBehaviour
 
     private async void BotShootPlayer()
     {
-        bool hasBullet = Random.value > 0.5f; 
+        bool hasBullet = Random.value > 0.3f; 
         
         // 1. Beritahu Animator apakah peluru isi atau kosong
         gunAnimator.SetBool("Shoot", hasBullet);
@@ -111,7 +111,7 @@ public class ShootScript : MonoBehaviour
         // 1. SEMBUNYIKAN UI SAAT ANIMASI BERJALAN
         shootMenu.GetComponent<Canvas>().enabled = false;
 
-        bool hasBullet = Random.value > 0.5f; 
+        bool hasBullet = Random.value > 0.3f; 
         
         //hasBullet = false; 
 
@@ -189,7 +189,7 @@ public class ShootScript : MonoBehaviour
         // 1. SEMBUNYIKAN UI SAAT ANIMASI BERJALAN
         shootMenu.GetComponent<Canvas>().enabled = false;
 
-        bool hasBullet = Random.value > 0.5f; 
+        bool hasBullet = Random.value > 0.7f; 
 
         // 2. MAIN KAN ANIMASI: Player ambil pistol & nembak
         gunAnimator.SetBool("PlayerWin", true); 

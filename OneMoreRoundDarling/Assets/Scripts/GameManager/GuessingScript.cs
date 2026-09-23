@@ -20,10 +20,13 @@ public class GuessingScript : MonoBehaviour
     public Image[] PlayerGuessPopUp;
 
     public TMP_Text guessIndicatorText;
+    [SerializeField] private const int BASE_SCORE = 50;
+    public PlayerScript playerScript;
 
     void Start()
     {
         coreLoop = GetComponent<CoreLoop>();
+        playerScript = GetComponent<PlayerScript>();
     }
 
     public async Task<int> guess(PlayerScript player, RikaScript rika)
@@ -112,6 +115,7 @@ public class GuessingScript : MonoBehaviour
         if (player.handDirection == rika.headDirection)
         {
             Debug.Log("[DEBUG] Same direction! continue to shoot");
+            playerScript.score += BASE_SCORE;
             player.attacker = true;
             rika.attacker = false;
             return 2;
